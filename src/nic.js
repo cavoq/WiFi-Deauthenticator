@@ -1,15 +1,12 @@
-const { spawnSync, execSync } = require('child_process');
-const macaddress = require('macaddress');
+const { execSync } = require('child_process');
 
-const WLAN_CODE = /(wlan[0-9]+)/g;
+function networkInterfaceController(interface) {
+    this.address = interface.address;
+    this.mac = interface.mac
+    this.family = interface.family;
+    this.internal = interface.internal;
 
-function network_interface_controller(nic) {
-    this.nic = nic;
-    this.addr = macaddress.one(this.nic).then((mac) => {
-        this.addr = mac;
-    });
-
-    function change_mac(addr) {
+    this.changeMac = (addr) => {
         try {
             execSync(`ifconfig ${nic} down`);
             execSync(`ifconfig ${nic} hw ether ${addr}`);
@@ -21,7 +18,7 @@ function network_interface_controller(nic) {
         }
     }
 
-    function reset_mac() {
+    this.resetMac = () => {
         try {
             original_mac = execSync(`ethtool -P ${this.nic}`);
             console.log(original_mac);
@@ -31,20 +28,4 @@ function network_interface_controller(nic) {
     }
 }
 
-function get_nic() {
-    const nic = [];
-    nic_process = spawnSync('iw', ['dev']);
-    if (nic_process.status > 0) {
-        console.log(`Child process failed with code ${nic_process.status}`);
-        return
-    }
-    nic_res = nic_process.stdout.toString().match(WLAN_CODE)
-    for (i = 0; i < nic_res.length; ++i) {
-        nic.push(nic_res[i]);
-    }
-    console.log(`Child process finished with exit code ${nic_process.status}`);
-    return nic;
-}
-
-module.exports.network_interface_controller = network_interface_controller
-module.exports.get_nic = get_nic
+module.exports.networkInterfaceController = networkInterfaceController

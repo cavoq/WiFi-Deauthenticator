@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>WiFI-Deauthenticator</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <script src="renderer.js"></script>
+  <div>
+    <label for="Network interface controller">Select an network interface controller:</label>
+    <select name="Network interface controllers" id="nicSelect">
+    </select>
+  </div>
+  <div>
+    <input type="checkbox" id="randomMac" name="Mac adress">
+    <label for="Use random mac adress">Use random mac adress</label>
+  </div>
+  <div>
+    <fieldset>
+      <legend>Choose network bands</legend>
+      <div>
+        <input type="checkbox" id="802.11g" name="network band" value="g">
+        <label for="802.11g">802.11g</label>
+      </div>
+      <div>
+        <input type="checkbox" id="802.11b" name="network band" value="b">
+        <label for="802.11b">802.11b</label>
+      </div>
+      <div>
+        <input type="checkbox" id="802.11a" name="network band" value="a">
+        <label for="802.11a">802.11a</label>
+      </div>
+    </fieldset>
+  </div>
+  <div>
+    <button id="start_scanning_ap_btn" type="button">Start scanning</button>
+  </div>
+  <div>
+    <button id="stop_scanning_ap_btn" type="button">Stop scanning</button>
+  </div>
+  <div>
+    <label for="access_points">Choose your target:</label>
+    <select name="access_points" id="accessPoints">
+    </select>
+  </div>
+  <div>
+    <p>Details about the access point</p>
+  </div>
+</body>
+
+</html>
