@@ -1,7 +1,9 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const model = require('./model.js')
+const model = require('./model.js');
 const os = require('os')
-const path = require('path')
+const path = require('path');
+const { networkInterfaceController } = require('./networkInterfaceController.js');
+
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -17,7 +19,7 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
-  ipcMain.handle('nicSelectInit', getNic);
+  ipcMain.handle('initializeInterfaces', getNetworkInterfaceControllers);
   createWindow();
 
   app.on('activate', () => {
@@ -33,11 +35,19 @@ app.on('window-all-closed', () => {
   }
 });
 
-function getNic() {
+function getNetworkInterfaceControllers() {
   const interfaces = os.networkInterfaces();
-  for (i = 0; i < interfaces.length; ++i) {
-    console.log(interfaces[i]);
-    model.networkInterfaceControllers.push(interfaces[i]);
+  model.networkInterfaceControllers = [];
+  for (const [address, interface] of Object.entries(interfaces)) {
+    if (address === 'lo') {
+      continue;
+    }
+    for (i = 0; i < interface.length; ++i) {
+      if (interface[i].family === 'IPv4' && interface[i].internal === false) {
+        let nic = new networkInterfaceController(interface[i]);
+        model.networkInterfaceControllers[address] = nic;
+      }
+    }
   }
-  return model.networkInterfaceControllers;
+  return Object.keys(model.networkInterfaceControllers);
 }

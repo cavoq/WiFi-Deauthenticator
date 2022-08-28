@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  getNic: () => ipcRenderer.invoke('nicSelectInit')
+contextBridge.exposeInMainWorld('API', {
+  getNetworkInterfaceControllers: () => ipcRenderer.invoke('initializeInterfaces')
 })
