@@ -3,6 +3,7 @@ const model = require('./model.js');
 const os = require('os')
 const path = require('path');
 const { networkInterfaceController } = require('./networkInterfaceController.js');
+const { Interface } = require('readline');
 
 
 const createWindow = () => {
@@ -20,6 +21,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   ipcMain.handle('initializeInterfaces', getNetworkInterfaceControllers);
+  ipcMain.handle('updateInterfaceSelection', updateInterfaceSelection);
   createWindow();
 
   app.on('activate', () => {
@@ -50,4 +52,7 @@ function getNetworkInterfaceControllers() {
     }
   }
   return Object.keys(model.networkInterfaceControllers);
+}
+
+function updateInterfaceSelection(_event, interface) {
 }
