@@ -1,12 +1,12 @@
-function get_random_mac() {
-    var hex_digits = "0123456789ABCDEF";
-    var mac_address = "";
+function getRandomMac() {
+    var hexDigits = "0123456789ABCDEF";
+    var macAddress = "";
     for (var i = 0; i < 6; i++) {
-        mac_address += hex_digits.charAt(Math.round(Math.random() * 15));
-        mac_address += hex_digits.charAt(Math.round(Math.random() * 15));
-        if (i != 5) mac_address += ":";
+        macAddress += hexDigits.charAt(Math.round(Math.random() * 15));
+        macAddress += hexDigits.charAt(Math.round(Math.random() * 15));
+        if (i != 5) macAddress += ":";
     }
-    return mac_address;
+    return macAddress;
 }
 
 function sleep(ms) {
@@ -15,5 +15,5 @@ function sleep(ms) {
     });
 }
 
-module.exports.get_random_mac = get_random_mac;
+module.exports.getRandomMac = getRandomMac;
 module.exports.sleep = sleep;

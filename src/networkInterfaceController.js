@@ -1,18 +1,21 @@
 const { execSync } = require('child_process');
 
 function networkInterfaceController(interface) {
+    this.name = interface.name;
     this.address = interface.address;
     this.mac = interface.mac
     this.family = interface.family;
     this.internal = interface.internal;
+    this.changedMac = false;
 
-    this.changeMac = (addr) => {
+    this.changeMac = (mac)  => {
         try {
-            execSync(`ifconfig ${nic} down`);
-            execSync(`ifconfig ${nic} hw ether ${addr}`);
-            execSync(`ifconfig ${nic} up`);
-            console.log(`Changed mac adress of ${this.nic} from ${this.addr} to ${addr}`);
-            this.addr = addr;
+            execSync(`sudo ifconfig ${this.name} down`);
+            execSync(`sudo ifconfig ${this.name} hw ether ${mac}`);
+            execSync(`sudo ifconfig ${this.name} up`);
+            this.changedMac = true;
+            console.log(`Changed mac address of ${this.name} from ${this.mac} to ${mac}`);
+            this.mac = mac;
         } catch (err) {
             console.log(err);
         }
@@ -20,8 +23,11 @@ function networkInterfaceController(interface) {
 
     this.resetMac = () => {
         try {
-            original_mac = execSync(`ethtool -P ${this.nic}`);
-            console.log(original_mac);
+            originalMac = execSync(`sudo ethtool -P ${this.name} | awk '{print $3}'`).toString().trim();
+            this.changeMac(originalMac);
+            this.mac = originalMac;
+            this.changedMac = false;
+            console.log('Reset mac address');
         } catch (err) {
             console.log(err);
         }

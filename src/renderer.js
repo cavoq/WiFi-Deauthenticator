@@ -1,7 +1,12 @@
 const interfaceSelect = document.getElementById('interfaceSelect');
+const randomMacCheckBox = document.getElementById('randomMacCheckBox');
 
-async function interfaceSelectChangeHandler(){
-    console.log(interfaceSelect.value)
+async function initializeUi() {
+    initializeSelect();
+    randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
+}
+
+async function interfaceSelectChangeHandler() {
     await window.API.updateInterfaceSelection(interfaceSelect.value);
 }
 
@@ -16,4 +21,8 @@ async function initializeSelect() {
     interfaceSelect.addEventListener('change', interfaceSelectChangeHandler)
 }
 
-initializeSelect();
+async function randomMacChangeHandler() {
+    await window.API.updateInterfaceMac(randomMacCheckBox.checked);
+}
+
+initializeUi();
