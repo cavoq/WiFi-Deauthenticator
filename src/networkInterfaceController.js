@@ -27,7 +27,6 @@ function networkInterfaceController(interface) {
             this.changeMac(originalMac);
             this.mac = originalMac;
             this.changedMac = false;
-            console.log('Reset mac address');
         } catch (err) {
             console.log(err);
         }

@@ -1,6 +1,7 @@
 const interfaceSelect = document.getElementById('interfaceSelect');
 const randomMacCheckBox = document.getElementById('randomMacCheckBox');
 
+
 async function initializeUi() {
     initializeSelect();
     randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
