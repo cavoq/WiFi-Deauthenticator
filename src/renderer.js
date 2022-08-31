@@ -1,16 +1,32 @@
 const interfaceSelect = document.getElementById('interfaceSelect');
 const randomMacCheckBox = document.getElementById('randomMacCheckBox');
-const bandCheckBoxes = [];
+const bandFieldSet = document.getElementById('bandFieldSet');
 
 
 async function initializeUi() {
     initializeSelect();
+    initializeBand();
     randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
 }
 
-async function initializeBand(){
-    
+async function initializeBand() {
+    const bandValues = getSelectedBandValues();
+    await window.API.updateBandSelection(bandValues);
 }
+
+function getSelectedBandValues() {
+    const bandArray = [];
+    const children = bandFieldSet.children;
+    for (i = 1; i < children.length; i++) {
+        const bandDiv = children[i];
+        const band = bandDiv.children[0];
+        if (band.checked) {
+            bandArray.push(band.defaultValue);
+        }
+    }
+    return bandArray;
+}
+
 async function initializeSelect() {
     networkInterfaceControllers = await window.API.getNetworkInterfaceControllers();
     for (i = 0; i < networkInterfaceControllers.length; i++) {
@@ -30,7 +46,8 @@ async function interfaceSelectChangeHandler() {
     await window.API.updateInterfaceSelection(interfaceSelect.value);
 }
 
-async function networkBandSelectionChanged() {
+async function networkBandSelectionChangeHandler() {
 
 }
+
 initializeUi();
