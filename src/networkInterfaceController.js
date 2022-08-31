@@ -14,7 +14,7 @@ function networkInterfaceController(interface) {
             execSync(`sudo ifconfig ${this.name} hw ether ${mac}`);
             execSync(`sudo ifconfig ${this.name} up`);
             this.changedMac = true;
-            console.log(`Changed mac address of ${this.name} from ${this.mac} to ${mac}`);
+            //console.log(`Changed mac address of ${this.name} from ${this.mac} to ${mac}`);
             this.mac = mac;
         } catch (err) {
             console.log(err);

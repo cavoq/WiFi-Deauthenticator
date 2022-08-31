@@ -1,5 +1,6 @@
 const interfaceSelect = document.getElementById('interfaceSelect');
 const randomMacCheckBox = document.getElementById('randomMacCheckBox');
+const bandCheckBoxes = [];
 
 
 async function initializeUi() {
@@ -7,10 +8,9 @@ async function initializeUi() {
     randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
 }
 
-async function interfaceSelectChangeHandler() {
-    await window.API.updateInterfaceSelection(interfaceSelect.value);
+async function initializeBand(){
+    
 }
-
 async function initializeSelect() {
     networkInterfaceControllers = await window.API.getNetworkInterfaceControllers();
     for (i = 0; i < networkInterfaceControllers.length; i++) {
@@ -26,4 +26,11 @@ async function randomMacChangeHandler() {
     await window.API.updateInterfaceMac(randomMacCheckBox.checked);
 }
 
+async function interfaceSelectChangeHandler() {
+    await window.API.updateInterfaceSelection(interfaceSelect.value);
+}
+
+async function networkBandSelectionChanged() {
+
+}
 initializeUi();
