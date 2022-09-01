@@ -10,8 +10,13 @@ async function initializeUi() {
 }
 
 async function initializeBand() {
-    const bandValues = getSelectedBandValues();
-    await window.API.updateBandSelection(bandValues);
+    const children = bandFieldSet.children;
+    for (i = 1; i < children.length; i++) {
+        const bandDiv = children[i];
+        const band = bandDiv.children[0];
+        band.addEventListener('change', bandSelectionChangeHandler);
+    }
+    await bandSelectionChangeHandler();
 }
 
 function getSelectedBandValues() {
@@ -46,8 +51,9 @@ async function interfaceSelectChangeHandler() {
     await window.API.updateInterfaceSelection(interfaceSelect.value);
 }
 
-async function networkBandSelectionChangeHandler() {
-
+async function bandSelectionChangeHandler() {
+    const bandValues = getSelectedBandValues();
+    await window.API.updateBandSelection(bandValues);
 }
 
 initializeUi();
