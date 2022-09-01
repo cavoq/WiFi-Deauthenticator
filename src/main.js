@@ -26,6 +26,7 @@ app.whenReady().then(() => {
   ipcMain.handle('initializeInterfaces', appModel.getNetworkInterfaceControllers);
   ipcMain.handle('updateInterfaceSelection', appModel.updateInterfaceSelection);
   ipcMain.handle('updateInterfaceMac', appModel.updateInterfaceMac);
+  ipcMain.handle('updateBandSelection', appModel.updateBandSelection);
   createWindow(appModel);
 
   app.on('activate', () => {

@@ -44,6 +44,10 @@ function model() {
         }
     }
 
+    this.updateBandSelection = (_event, bandValues) => {
+        this.bandFlags = bandValues;
+    }
+
     this.reset = () => {
         for (i = 0; i < this.networkInterfaceControllers.length; ++i) {
             this.networkInterfaceControllers[i].resetMac();
