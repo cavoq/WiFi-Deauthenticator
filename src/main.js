@@ -13,6 +13,8 @@ const createWindow = (appModel) => {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
     },
+    darkTheme: true,
+    icon: 'public/wlan-signal.png',
   });
 
   win.on('closed', () => {
@@ -36,7 +38,6 @@ app.whenReady().then(() => {
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow(appModel);
-      nativeTheme.themeSource = 'dark'
     }
   });
 });
@@ -49,6 +50,7 @@ app.on('window-all-closed', () => {
 
 openMessageBox = (_event, message) => {
   const options = {
+    title: 'Unable to start scanning',
     message: message,
   }
   dialog.showMessageBox(app.win, options);
