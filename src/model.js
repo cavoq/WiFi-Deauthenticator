@@ -1,19 +1,22 @@
 const os = require('os');
 const networkInterfaceController = require('./networkInterfaceController').networkInterfaceController;
 const utils = require('./utils');
+const { spawn } = require('child_process');
 
+const CAPTURED_WAPS="../capturedwaps/capturedWAPS"
 
 function model() {
     this.networkInterfaceControllers = [];
-    this.usedNetworkInterfaceController = null;
+    this.usedNetworkInterfaceController;
     this.macRandomized = false;
     this.bandFlags = [];
+    this.scanProcess;
 
     this.getNetworkInterfaceControllers = () => {
         const interfaces = os.networkInterfaces();
         this.networkInterfaceControllers = [];
         for (const [address, interface] of Object.entries(interfaces)) {
-            if (address === 'lo') {
+            if (address === 'lo' || address ==='eth0') {
                 continue;
             }
             for (i = 0; i < interface.length; ++i) {
@@ -48,6 +51,10 @@ function model() {
         this.bandFlags = bandValues;
     }
 
+    this.scanAccessPoints = async () => {
+        
+    }
+    
     this.reset = () => {
         for (i = 0; i < this.networkInterfaceControllers.length; ++i) {
             this.networkInterfaceControllers[i].resetMac();

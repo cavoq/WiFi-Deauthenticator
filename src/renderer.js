@@ -61,7 +61,7 @@ async function bandSelectionChangeHandler() {
 }
 
 async function startScanningHandler() {
-
+    
 }
 
 async function stopScanningHandler() {
