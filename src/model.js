@@ -3,7 +3,7 @@ const networkInterfaceController = require('./networkInterfaceController').netwo
 const utils = require('./utils');
 const { spawn } = require('child_process');
 
-const CAPTURED_WAPS="../capturedwaps/capturedWAPS"
+const CAPTURED_WAPS = "../capturedwaps/capturedWAPS"
 
 function model() {
     this.networkInterfaceControllers = [];
@@ -16,7 +16,7 @@ function model() {
         const interfaces = os.networkInterfaces();
         this.networkInterfaceControllers = [];
         for (const [address, interface] of Object.entries(interfaces)) {
-            if (address === 'lo' || address ==='eth0') {
+            if (address === 'lo' || address === 'eth0') {
                 continue;
             }
             for (i = 0; i < interface.length; ++i) {
@@ -52,9 +52,22 @@ function model() {
     }
 
     this.scanAccessPoints = async () => {
-        
+        this.scanProcess = spawn('airodump-ng', ['--band', this.bandFlags.join(''), '-w',
+            CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
+
+        this.scanProcess.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+
+        this.scanProcess.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+
+        this.scanProcess.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+        });
     }
-    
+
     this.reset = () => {
         for (i = 0; i < this.networkInterfaceControllers.length; ++i) {
             this.networkInterfaceControllers[i].resetMac();

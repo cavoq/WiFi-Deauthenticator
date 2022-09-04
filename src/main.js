@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const model = require('./model.js');
 const path = require('path');
+const { nativeTheme } = require('electron/main');
+const { dialog } = require('electron')
 
 
 const createWindow = (appModel) => {
@@ -27,11 +29,14 @@ app.whenReady().then(() => {
   ipcMain.handle('updateInterfaceSelection', appModel.updateInterfaceSelection);
   ipcMain.handle('updateInterfaceMac', appModel.updateInterfaceMac);
   ipcMain.handle('updateBandSelection', appModel.updateBandSelection);
+  ipcMain.handle('getAccessPoints', appModel.scanAccessPoints);
+  ipcMain.handle('openMessageBox', openMessageBox);
   createWindow(appModel);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow(appModel);
+      nativeTheme.themeSource = 'dark'
     }
   });
 });
@@ -42,3 +47,9 @@ app.on('window-all-closed', () => {
   }
 });
 
+openMessageBox = (_event, message) => {
+  const options = {
+    message: message,
+  }
+  dialog.showMessageBox(app.win, options);
+}

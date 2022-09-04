@@ -44,7 +44,8 @@ async function initializeSelect() {
         opt.innerHTML = networkInterfaceControllers[i];
         interfaceSelect.appendChild(opt);
     }
-    interfaceSelect.addEventListener('change', interfaceSelectChangeHandler)
+    interfaceSelect.addEventListener('change', interfaceSelectChangeHandler);
+    interfaceSelectChangeHandler();
 }
 
 async function randomMacChangeHandler() {
@@ -61,11 +62,21 @@ async function bandSelectionChangeHandler() {
 }
 
 async function startScanningHandler() {
-    
+    accessPoints = [];
+    selectedBandValues = getSelectedBandValues();
+    console.log(selectedBandValues)
+    if (selectedBandValues.length === 0) {
+        await window.MSG.openMessageBox("No network band selected, you need to select at least 1 network band.");
+        return
+    }
+    if (!interfaceSelect.value) {
+        await window.MSG.openMessageBox("No network interface controller selected.");
+        return
+    }
+    accessPoints = await window.API.getAccessPoints();
 }
 
 async function stopScanningHandler() {
-
 }
 
 initializeUi();
