@@ -1,3 +1,7 @@
+/* 
+* Implementation of data model.
+*/
+
 const os = require('os');
 const networkInterfaceController = require('./networkInterfaceController').networkInterfaceController;
 const utils = require('./utils');
@@ -55,19 +59,14 @@ function model() {
         this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
             CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
 
-        this.scanProcess.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-        });
-
-        this.scanProcess.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
-        });
-
         this.scanProcess.on('close', (code) => {
             console.log(`child process exited with code ${code}`);
         });
     }
 
+    this.stopScanningAccessPoints = async () => {
+        
+    }
     this.reset = () => {
         for (i = 0; i < this.networkInterfaceControllers.length; ++i) {
             this.networkInterfaceControllers[i].resetMac();

@@ -1,3 +1,7 @@
+/*
+* Test for network interface controller model.
+*/
+
 const assert = require('assert');
 const networkInterfaceController = require('../src/networkInterfaceController').networkInterfaceController;
 const utils = require('../src/utils');

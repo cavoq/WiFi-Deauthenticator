@@ -1,3 +1,7 @@
+/*
+* Renderer that handles frontend functionality.
+*/
+
 const interfaceSelect = document.getElementById('interfaceSelect');
 const randomMacCheckBox = document.getElementById('randomMacCheckBox');
 const bandFieldSet = document.getElementById('bandFieldSet');

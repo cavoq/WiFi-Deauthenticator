@@ -1,4 +1,10 @@
+/*
+* Model for network interface controller.
+*/
+
 const { execSync } = require('child_process');
+const errorlog = require('./logger.js').errorlog;
+const successlog = require('./logger.js').successlog;
 
 function networkInterfaceController(interface) {
     this.name = interface.name;
@@ -8,16 +14,16 @@ function networkInterfaceController(interface) {
     this.internal = interface.internal;
     this.changedMac = false;
 
-    this.changeMac = (mac)  => {
+    this.changeMac = (mac) => {
         try {
             execSync(`sudo ifconfig ${this.name} down`);
             execSync(`sudo ifconfig ${this.name} hw ether ${mac}`);
             execSync(`sudo ifconfig ${this.name} up`);
             this.changedMac = true;
-            //console.log(`Changed mac address of ${this.name} from ${this.mac} to ${mac}`);
+            successlog.info(`Changed mac address of ${this.name} from ${this.mac} to ${mac}`);
             this.mac = mac;
         } catch (err) {
-            console.log(err);
+            errorlog.error(`Could not change mac adress of ${this.name}: ${err}`);
         }
     }
 
@@ -28,7 +34,7 @@ function networkInterfaceController(interface) {
             this.mac = originalMac;
             this.changedMac = false;
         } catch (err) {
-            console.log(err);
+            errorlog.error(`Could not reset mac adress of ${this.name}: ${err}`);
         }
     }
 }

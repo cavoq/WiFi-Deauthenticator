@@ -1,7 +1,10 @@
+/*
+* Implementation of main module.
+*/
+
 const { app, BrowserWindow, ipcMain } = require('electron');
 const model = require('./model.js');
 const path = require('path');
-const { nativeTheme } = require('electron/main');
 const { dialog } = require('electron')
 
 

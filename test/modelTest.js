@@ -1,3 +1,7 @@
+/*
+* Test for data model.
+*/
+
 const assert = require('assert');
 const model = require('../src/model.js');
 

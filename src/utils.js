@@ -1,3 +1,7 @@
+/*
+* Collection of utility functions.
+*/
+
 function getRandomMac() {
     var hexDigits = "0123456789ABCDEF";
     var macAddress = "";

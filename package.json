@@ -46,7 +46,9 @@
     "electron-squirrel-startup": "^1.0.0",
     "macaddress": "^0.5.3",
     "sudo-prompt": "^9.2.1",
-    "unit.js": "^2.1.1"
+    "unit.js": "^2.1.1",
+    "winston": "^3.8.1",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.65",

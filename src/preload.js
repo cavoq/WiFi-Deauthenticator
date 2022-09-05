@@ -1,3 +1,7 @@
+/*
+* Preload file that exposes APIs for the backend communication.
+*/
+
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('API', {
