@@ -68,7 +68,6 @@ async function bandSelectionChangeHandler() {
 async function startScanningHandler() {
     accessPoints = [];
     selectedBandValues = getSelectedBandValues();
-    console.log(selectedBandValues)
     if (selectedBandValues.length === 0) {
         await window.MSG.openMessageBox("No network band selected, you need to select at least one network band.");
         return

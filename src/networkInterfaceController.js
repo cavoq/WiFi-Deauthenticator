@@ -14,6 +14,26 @@ function networkInterfaceController(interface) {
     this.internal = interface.internal;
     this.changedMac = false;
 
+    this.setMonitorMode = () => {
+        try {
+            execSync(`airmon-ng check kill`);
+            execSync(`airmon-ng start ${this.name}`);
+            successlog.info(`${this.name} is now in monitor mode`);
+        } catch (err) {
+            errorlog.error(`Could not set ${this.name} into monitor mode: ${err}`);
+        }
+    }
+
+    this.setManagedMode = () => {
+        try {
+            execSync(`airmon-ng stop ${this.name}`);
+            execSync(`service NetworkManager restart`);
+            successlog.info(`${this.name} is now in managed mode`);
+        } catch (err) {
+            errorlog.error(`Could not set ${this.name} into managed mode: ${err}`);
+        }
+    }
+
     this.changeMac = (mac) => {
         try {
             execSync(`sudo ifconfig ${this.name} down`);

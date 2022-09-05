@@ -7,7 +7,7 @@ const networkInterfaceController = require('./networkInterfaceController').netwo
 const utils = require('./utils');
 const { spawn } = require('child_process');
 
-const CAPTURED_WAPS = "../capturedwaps/capturedWAPS"
+const CAPTURED_WAPS = "./capturedwaps/capturedWAPS"
 
 function model() {
     this.networkInterfaceControllers = [];
@@ -60,13 +60,13 @@ function model() {
             CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
 
         this.scanProcess.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
         });
     }
 
     this.stopScanningAccessPoints = async () => {
-        
+        this.scanProcess.kill('SIGSTOP');
     }
+
     this.reset = () => {
         for (i = 0; i < this.networkInterfaceControllers.length; ++i) {
             this.networkInterfaceControllers[i].resetMac();
