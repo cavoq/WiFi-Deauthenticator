@@ -6,11 +6,15 @@ const os = require('os');
 const networkInterfaceController = require('./networkInterfaceController').networkInterfaceController;
 const utils = require('./utils');
 const { spawn } = require('child_process');
+const fs = require("fs");
+const { parse } = require("csv-parse")
 
-const CAPTURED_WAPS = "./capturedwaps/capturedWAPS"
+const CAPTURED_WAPS = "./capturedwaps/capturedWAPS";
+const CSV_PREFIX = "-01.csv";
 
 function model() {
     this.networkInterfaceControllers = [];
+    this.accessPoints = [];
     this.usedNetworkInterfaceController;
     this.macRandomized = false;
     this.bandFlags = [];
@@ -58,13 +62,25 @@ function model() {
     this.scanAccessPoints = async () => {
         this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
             CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
-
-        this.scanProcess.on('close', (code) => {
-        });
     }
 
     this.stopScanningAccessPoints = async () => {
-        this.scanProcess.kill('SIGSTOP');
+        this.scanProcess.kill('SIGINT');
+        this.readAccessPointsFromCsv();
+    }
+
+    this.readAccessPointsFromCsv = () => {
+        const readStream = fs.createReadStream(CAPTURED_WAPS + CSV_PREFIX);
+        readStream.pipe(parse({ delimiter: ",", from_line: 2 }))
+            .on("data", function (row) {
+                console.log(row);
+            })
+            .on("error", function (error) {
+                console.log(error.message);
+            })
+            .on("end", function () {
+                console.log("finished");
+            });
     }
 
     this.reset = () => {

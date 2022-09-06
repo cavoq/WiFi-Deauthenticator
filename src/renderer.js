@@ -14,7 +14,7 @@ async function initializeUi() {
     initializeBand();
     randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
     startScanningBtn.addEventListener('click', startScanningHandler);
-    stopScanningBtn.addEventListener('click', stopScanningBtn);
+    stopScanningBtn.addEventListener('click', stopScanningHandler);
 }
 
 async function initializeBand() {
@@ -76,10 +76,11 @@ async function startScanningHandler() {
         await window.MSG.openMessageBox("No network interface controller selected.");
         return
     }
-    accessPoints = await window.API.getAccessPoints();
+    await window.API.startScanning();
 }
 
 async function stopScanningHandler() {
+    await window.API.getAccessPoints();
 }
 
 initializeUi();

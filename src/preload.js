@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('API', {
   updateInterfaceSelection: (interface) => ipcRenderer.invoke('updateInterfaceSelection', interface),
   updateInterfaceMac: (randomized) => ipcRenderer.invoke('updateInterfaceMac', randomized),
   updateBandSelection: (bandValues) => ipcRenderer.invoke('updateBandSelection', bandValues),
+  startScanning: () => ipcRenderer.invoke('startScanning'),
   getAccessPoints: () => ipcRenderer.invoke('getAccessPoints')
 })
 

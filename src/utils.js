@@ -2,6 +2,9 @@
 * Collection of utility functions.
 */
 
+const { execSync } = require('child_process');
+const { delimiter } = require('path');
+
 function getRandomMac() {
     var hexDigits = "0123456789ABCDEF";
     var macAddress = "";
@@ -17,6 +20,12 @@ function sleep(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
     });
+}
+
+function deleteClientsFromCsv(csv) {
+    delimiter = 'Station MAC';
+    csv = execSync(`sed -n '/${delimiter}/q;p' ${csv}`);
+    return csv;
 }
 
 module.exports.getRandomMac = getRandomMac;

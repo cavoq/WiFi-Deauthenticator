@@ -34,7 +34,8 @@ app.whenReady().then(() => {
   ipcMain.handle('updateInterfaceSelection', appModel.updateInterfaceSelection);
   ipcMain.handle('updateInterfaceMac', appModel.updateInterfaceMac);
   ipcMain.handle('updateBandSelection', appModel.updateBandSelection);
-  ipcMain.handle('getAccessPoints', appModel.scanAccessPoints);
+  ipcMain.handle('startScanning', appModel.scanAccessPoints)
+  ipcMain.handle('getAccessPoints', appModel.stopScanningAccessPoints);
   ipcMain.handle('openMessageBox', openMessageBox);
   createWindow(appModel);
 

@@ -43,6 +43,7 @@
     }
   },
   "dependencies": {
+    "csv-parse": "^5.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "macaddress": "^0.5.3",
     "sudo-prompt": "^9.2.1",
