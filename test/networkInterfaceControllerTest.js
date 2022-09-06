@@ -25,8 +25,20 @@ describe("Network interface controller", function () {
     });
 
     describe("Reset of mac adress", function () {
-        it("Reset mac adress of interface", function () {
+        it("Reset mac address of interface", function () {
             assert.doesNotThrow(() => testNetworkInterfaceController.resetMac);
+        });
+    });
+
+    describe("Set interface in monitor mode", function () {
+        it("Set interface into monitor mode", function () {
+            assert.doesNotThrow(() => testNetworkInterfaceController.setMonitorMode);
+        });
+    });
+
+    describe("Set interface in managed mode", function () {
+        it("Set interface into managed mode", function () {
+            assert.doesNotThrow(() => testNetworkInterfaceController.setManagedMode);
         });
     });
 });
