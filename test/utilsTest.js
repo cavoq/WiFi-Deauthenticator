@@ -1,15 +1,18 @@
 const utils = require('../src/utils');
 const assert = require('assert');
-const fs = require("fs");
+const { execSync } = require('child_process');
 
-const CAPTURED_WAPS_TEST = './inputs/sampleAccessPoints.csv';
+const CAPTURED_WAPS_TEST = __dirname + '/input/sampleAccessPoints.csv';
+const CAPTURED_WAPS_TMP = __dirname + '/tmp/sampleAccessPoints.csv';
+const CAPTURED_WAPS_OUTPUT = __dirname + '/output/sampleAccessPoints.csv';
 
 describe("Utilies", function () {
-    const readStream = fs.createReadStream(CAPTURED_WAPS_TEST);
-
     describe("Deleting of clients in csv for APs", function () {
         it("Deleted clients", function () {
-            assert.doesNotThrow(() => testNetworkInterfaceController.changeMac(mac));
+            execSync(`cp ${CAPTURED_WAPS_TEST} ${CAPTURED_WAPS_TMP}`);
+            utils.deleteClientsFromCsv(CAPTURED_WAPS_TMP);
+            const diff = execSync(`diff ${CAPTURED_WAPS_TMP} ${CAPTURED_WAPS_OUTPUT}`);
+            assert.equal(diff.byteLength, 0);
         });
     });
 });
