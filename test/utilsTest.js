@@ -15,4 +15,11 @@ describe("Utilies", function () {
             assert.equal(diff.byteLength, 0);
         });
     });
+
+    describe("Reading of csv file", function () {
+        it("Csv file read", function () {
+            const accessPoints = utils.readAccessPointsFromCsv(CAPTURED_WAPS_OUTPUT);
+            console.log(accessPoints);
+        });
+    });
 });
