@@ -1,12 +1,14 @@
+/* eslint-disable new-cap */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-extraneous-dependencies */
 /*
 * Implementation of main module.
 */
 
 const { app, BrowserWindow, ipcMain } = require('electron');
-const model = require('./model.js');
 const path = require('path');
-const { dialog } = require('electron')
-
+const { dialog } = require('electron');
+const model = require('./model.js');
 
 const createWindow = (appModel) => {
   const win = new BrowserWindow({
@@ -28,13 +30,21 @@ const createWindow = (appModel) => {
   win.loadFile('src/main.html');
 };
 
+const openMessageBox = (_event, message) => {
+  const options = {
+    title: 'Unable to start scanning',
+    message,
+  };
+  dialog.showMessageBox(app.win, options);
+};
+
 app.whenReady().then(() => {
   const appModel = new model.model();
   ipcMain.handle('initializeInterfaces', appModel.getNetworkInterfaceControllers);
   ipcMain.handle('updateInterfaceSelection', appModel.updateInterfaceSelection);
   ipcMain.handle('updateInterfaceMac', appModel.updateInterfaceMac);
   ipcMain.handle('updateBandSelection', appModel.updateBandSelection);
-  ipcMain.handle('startScanning', appModel.scanAccessPoints)
+  ipcMain.handle('startScanning', appModel.scanAccessPoints);
   ipcMain.handle('getAccessPoints', appModel.stopScanningAccessPoints);
   ipcMain.handle('openMessageBox', openMessageBox);
   createWindow(appModel);
@@ -51,11 +61,3 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
-openMessageBox = (_event, message) => {
-  const options = {
-    title: 'Unable to start scanning',
-    message: message,
-  }
-  dialog.showMessageBox(app.win, options);
-}

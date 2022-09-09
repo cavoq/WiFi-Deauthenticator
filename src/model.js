@@ -1,17 +1,20 @@
-/* 
+/* eslint-disable no-continue */
+/* eslint-disable new-cap */
+/* eslint-disable no-unused-expressions */
+/*
 * Implementation of data model.
 */
 
 const os = require('os');
-const networkInterfaceController = require('./networkInterfaceController').networkInterfaceController;
-const utils = require('./utils');
 const { spawn } = require('child_process');
+const { networkInterfaceController } = require('./networkInterfaceController');
+const utils = require('./utils');
 
+const CAPTURED_WAPS = './capturedwaps/capturedWAPS';
+const CSV_PREFIX = '-01.csv';
 
-const CAPTURED_WAPS = "./capturedwaps/capturedWAPS";
-const CSV_PREFIX = "-01.csv";
-
-function model() {
+class model {
+  constructor() {
     this.networkInterfaceControllers = [];
     this.accessPoints = [];
     this.usedNetworkInterfaceController;
@@ -20,60 +23,62 @@ function model() {
     this.scanProcess;
 
     this.getNetworkInterfaceControllers = () => {
-        const interfaces = os.networkInterfaces();
-        this.networkInterfaceControllers = [];
-        for (const [address, interface] of Object.entries(interfaces)) {
-            if (address === 'lo' || address === 'eth0') {
-                continue;
-            }
-            for (i = 0; i < interface.length; ++i) {
-                if (interface[i].family === 'IPv4' && interface[i].internal === false) {
-                    interface[i].name = address;
-                    let nic = new networkInterfaceController(interface[i]);
-                    this.networkInterfaceControllers[address] = nic;
-                }
-            }
+      const interfaces = os.networkInterfaces();
+      this.networkInterfaceControllers = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [address, iface] of Object.entries(interfaces)) {
+        if (address === 'lo' || address === 'eth0') {
+          continue;
         }
-        return Object.keys(this.networkInterfaceControllers);
-    }
+        for (let i = 0; i < iface.length; i += 1) {
+          if (iface[i].family === 'IPv4' && iface[i].internal === false) {
+            iface[i].name = address;
+            const nic = new networkInterfaceController(iface[i]);
+            this.networkInterfaceControllers[address] = nic;
+          }
+        }
+      }
+      return Object.keys(this.networkInterfaceControllers);
+    };
 
-    this.updateInterfaceSelection = (_event, interface) => {
-        this.usedNetworkInterfaceController = this.networkInterfaceControllers[interface];
-    }
+    this.updateInterfaceSelection = (_event, iface) => {
+      this.usedNetworkInterfaceController = this.networkInterfaceControllers[iface];
+    };
 
     this.updateInterfaceMac = (_event, randomized) => {
-        this.macRandomized = randomized;
-        if (this.macRandomized) {
-            if (this.usedNetworkInterfaceController.changedMac) {
-                return;
-            }
-            randomMac = utils.getRandomMac();
-            this.usedNetworkInterfaceController.changeMac(randomMac);
-        } else {
-            this.usedNetworkInterfaceController.resetMac();
+      this.macRandomized = randomized;
+      if (this.macRandomized) {
+        if (this.usedNetworkInterfaceController.changedMac) {
+          return;
         }
-    }
+        const randomMac = utils.getRandomMac();
+        this.usedNetworkInterfaceController.changeMac(randomMac);
+      } else {
+        this.usedNetworkInterfaceController.resetMac();
+      }
+    };
 
     this.updateBandSelection = (_event, bandValues) => {
-        this.bandFlags = bandValues;
-    }
+      this.bandFlags = bandValues;
+    };
 
     this.scanAccessPoints = async () => {
-        this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
-            CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
-    }
+      this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
+        CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
+    };
 
     this.stopScanningAccessPoints = async () => {
-        this.scanProcess.kill('SIGINT');
-        utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
-        utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
-    }
+      this.scanProcess.kill('SIGINT');
+      utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
+      utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
+    };
 
     this.reset = () => {
-        for (i = 0; i < this.networkInterfaceControllers.length; ++i) {
-            this.networkInterfaceControllers[i].resetMac();
-        }
-    }
+      for (let i = 0; i < this.networkInterfaceControllers.length; i += 1) {
+        this.networkInterfaceControllers[i].resetMac();
+      }
+    };
+  }
 }
 
 module.exports.model = model;

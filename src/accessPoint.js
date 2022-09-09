@@ -2,7 +2,9 @@
 * Model for access points
 */
 
-function accessPoints(bssid, channel, privacy, cipher, authentication, essid) {
+// eslint-disable-next-line no-unused-vars
+class accessPoints {
+  constructor(bssid, channel, privacy, cipher, authentication, essid) {
     this.bssid = bssid;
     this.channel = channel;
     this.privacy = privacy;
@@ -12,6 +14,6 @@ function accessPoints(bssid, channel, privacy, cipher, authentication, essid) {
     this.clients = [];
 
     this.scanClients = () => {
-        return;
-    }
+    };
+  }
 }
