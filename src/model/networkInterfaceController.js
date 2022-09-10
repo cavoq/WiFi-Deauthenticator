@@ -4,8 +4,8 @@
 */
 
 const { execSync } = require('child_process');
-const { errorlog } = require('./logger.js');
-const { successlog } = require('./logger.js');
+const { errorlog } = require('../logger.js');
+const { successlog } = require('../logger.js');
 
 class networkInterfaceController {
   constructor(iface) {

@@ -6,9 +6,9 @@
 */
 
 const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
+const { path } = require('path');
 const { dialog } = require('electron');
-const model = require('./model.js');
+const { model } = require('./model/model.js');
 
 const createWindow = (appModel) => {
   const win = new BrowserWindow({
@@ -39,7 +39,7 @@ const openMessageBox = (_event, message) => {
 };
 
 app.whenReady().then(() => {
-  const appModel = new model.model();
+  const appModel = new model();
   ipcMain.handle('initializeInterfaces', appModel.getNetworkInterfaceControllers);
   ipcMain.handle('updateInterfaceSelection', appModel.updateInterfaceSelection);
   ipcMain.handle('updateInterfaceMac', appModel.updateInterfaceMac);

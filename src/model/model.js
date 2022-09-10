@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-continue */
 /* eslint-disable new-cap */
 /* eslint-disable no-unused-expressions */
@@ -8,7 +9,7 @@
 const os = require('os');
 const { spawn } = require('child_process');
 const { networkInterfaceController } = require('./networkInterfaceController');
-const utils = require('./utils');
+const { utils } = require('../utils');
 
 const CAPTURED_WAPS = './capturedwaps/capturedWAPS';
 const CSV_PREFIX = '-01.csv';
@@ -22,10 +23,9 @@ class model {
     this.bandFlags = [];
     this.scanProcess;
 
-    this.getNetworkInterfaceControllers = () => {
+    this.scanNetworkInterfaceControllers = () => {
       const interfaces = os.networkInterfaces();
       this.networkInterfaceControllers = [];
-      // eslint-disable-next-line no-restricted-syntax
       for (const [address, iface] of Object.entries(interfaces)) {
         if (address === 'lo' || address === 'eth0') {
           continue;
@@ -38,28 +38,6 @@ class model {
           }
         }
       }
-      return Object.keys(this.networkInterfaceControllers);
-    };
-
-    this.updateInterfaceSelection = (_event, iface) => {
-      this.usedNetworkInterfaceController = this.networkInterfaceControllers[iface];
-    };
-
-    this.updateInterfaceMac = (_event, randomized) => {
-      this.macRandomized = randomized;
-      if (this.macRandomized) {
-        if (this.usedNetworkInterfaceController.changedMac) {
-          return;
-        }
-        const randomMac = utils.getRandomMac();
-        this.usedNetworkInterfaceController.changeMac(randomMac);
-      } else {
-        this.usedNetworkInterfaceController.resetMac();
-      }
-    };
-
-    this.updateBandSelection = (_event, bandValues) => {
-      this.bandFlags = bandValues;
     };
 
     this.scanAccessPoints = async () => {
@@ -70,7 +48,7 @@ class model {
     this.stopScanningAccessPoints = async () => {
       this.scanProcess.kill('SIGINT');
       utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
-      this.accessPoints = utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
+      this.accessPoints = await utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
     };
 
     this.reset = () => {
