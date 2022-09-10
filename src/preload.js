@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
 /*
 * Preload file that exposes APIs for the backend communication.
 */

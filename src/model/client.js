@@ -2,11 +2,11 @@
 * Model for clients
 */
 
-class client {
+class Client {
   constructor(stationMac, bssid) {
     this.stationMac = stationMac;
     this.bssid = bssid;
   }
 }
 
-module.exports.client = client;
+module.exports.Client = Client;

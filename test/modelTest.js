@@ -1,28 +1,28 @@
-/* eslint-disable new-cap */
-/* eslint-disable import/extensions */
 /* eslint-disable no-undef */
+/* eslint-disable import/extensions */
+
 /*
 * Test for data model.
 */
 
 const assert = require('assert');
-const { model } = require('../src/model/model.js');
+const { Model } = require('../src/model/model.js');
 
 describe('Class: Model', () => {
-  const appModel = new model();
+  const testModel = new Model();
 
   it('Func: scanNetworkInterfaceControllers', () => {
-    appModel.scanNetworkInterfaceControllers();
+    testModel.scanNetworkInterfaceControllers();
     assert.equal(1, 1);
   });
 
   it('Func: scanAccessPoints', () => {
-    appModel.scanAccessPoints();
+    testModel.scanAccessPoints();
     assert.equal(1, 1);
   });
 
   it('Func: stopScanningAccessPoints', () => {
-    appModel.stopScanningAccessPoints();
+    testModel.stopScanningAccessPoints();
     assert.equal(1, 1);
   });
 });

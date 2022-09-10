@@ -1,12 +1,12 @@
-/* eslint-disable new-cap */
 /* eslint-disable no-undef */
+
 /*
 * Test for network interface controller model.
 */
 
 const assert = require('assert');
-const { networkInterfaceController } = require('../src/model/networkInterfaceController');
-const { utils } = require('../src/utils');
+const { NetworkInterfaceController } = require('../src/model/networkInterfaceController');
+const { Utils } = require('../src/utils');
 
 const MOCK_INTERFACE = {
   name: 'wlan1',
@@ -17,10 +17,10 @@ const MOCK_INTERFACE = {
 };
 
 describe('Class: NetworkInterfaceController', () => {
-  const testNetworkInterfaceController = new networkInterfaceController(MOCK_INTERFACE);
+  const testNetworkInterfaceController = new NetworkInterfaceController(MOCK_INTERFACE);
 
   it('Func: changeMac', () => {
-    mac = utils.getRandomMac();
+    const mac = Utils.getRandomMac();
     assert.doesNotThrow(() => testNetworkInterfaceController.changeMac(mac));
   });
   it('Func: resetMac', () => {

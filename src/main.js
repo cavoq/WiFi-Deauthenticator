@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
+
 /*
 * Implementation of main module.
 */

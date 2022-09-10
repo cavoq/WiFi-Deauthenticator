@@ -3,7 +3,7 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-class accessPoint {
+class AccessPoint {
   constructor(bssid, channel, privacy, cipher, authentication, essid) {
     this.bssid = bssid;
     this.channel = channel;
@@ -12,12 +12,9 @@ class accessPoint {
     this.authentication = authentication;
     this.essid = essid;
     this.clients = [];
-
-    this.display = () => `${this.essid}, ${this.bssid}`;
-
-    this.scanClients = () => {
-    };
   }
+
+  display = () => `${this.essid}, ${this.bssid}`;
 }
 
-module.exports.accessPoint = accessPoint;
+module.exports.AccessPoint = AccessPoint;

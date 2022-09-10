@@ -2,38 +2,38 @@
 * Module implementing the controller.
 */
 
-const { utils } = require('../utils');
+const { Utils } = require('../utils');
 
-class controller {
+class Controller {
   constructor(model) {
     this.model = model;
+  }
 
-    this.getNetworkInterfaceControllers = () => {
-      this.model.scanNetworkInterfaceContollers();
-      return Object.keys(this.model.networkInterfaceControllers);
-    };
+  getNetworkInterfaceControllers() {
+    this.model.scanNetworkInterfaceContollers();
+    return Object.keys(this.model.networkInterfaceControllers);
+  }
 
-    this.setInterfaceSelection = (_event, iface) => {
-      this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
-    };
+  setInterfaceSelection(_event, iface) {
+    this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
+  }
 
-    this.setInterfaceMac = (_event, randomized) => {
-      this.model.macRandomized = randomized;
-      if (this.model.macRandomized) {
-        if (this.model.usedNetworkInterfaceController.changedMac) {
-          return;
-        }
-        const randomMac = utils.getRandomMac();
-        this.model.usedNetworkInterfaceController.changeMac(randomMac);
-      } else {
-        this.model.usedNetworkInterfaceController.resetMac();
+  setInterfaceMac(_event, randomized) {
+    this.model.macRandomized = randomized;
+    if (this.model.macRandomized) {
+      if (this.model.usedNetworkInterfaceController.changedMac) {
+        return;
       }
-    };
+      const randomMac = Utils.getRandomMac();
+      this.model.usedNetworkInterfaceController.changeMac(randomMac);
+    } else {
+      this.model.usedNetworkInterfaceController.resetMac();
+    }
+  }
 
-    this.setBandSelection = (_event, bandValues) => {
-      this.model.bandValues = bandValues;
-    };
+  setBandSelection(_event, bandValues) {
+    this.model.bandValues = bandValues;
   }
 }
 
-module.exports.controller = controller;
+module.exports.Controller = Controller;

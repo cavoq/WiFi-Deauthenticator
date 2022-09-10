@@ -1,4 +1,5 @@
 /* eslint-disable new-cap */
+
 /**
  * Configurations of logger.
  */

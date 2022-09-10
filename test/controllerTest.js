@@ -1,21 +1,20 @@
-/* eslint-disable new-cap */
-/* eslint-disable import/extensions */
 /* eslint-disable no-undef */
+/* eslint-disable import/extensions */
+
 /*
 * Test for controller.
 */
 
 const assert = require('assert');
-const { model } = require('../src/model/model.js');
-const { controller } = require('../src/controller/controller.js');
+const { Model } = require('../src/model/model.js');
+const { Controller } = require('../src/controller/controller.js');
 
 const MOCK_INTERFACE = 'wlan1';
-const MOCK_EVENT = function callable() {};
+const MOCK_EVENT = function callable() { };
 
 describe('Class: Controller', () => {
-  const testModel = new model();
-  const testController = new controller(testModel);
-  console.log(testController);
+  const testModel = new Model();
+  const testController = new Controller(testModel);
 
   it('Func: getNetworkInterfaceControllers', () => {
     nics = testController.getNetworkInterfaceControllers();

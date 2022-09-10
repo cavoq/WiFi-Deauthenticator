@@ -9,11 +9,11 @@
 const fs = require('fs');
 const readline = require('readline');
 const { execSync } = require('child_process');
-const { accessPoint } = require('./model/accessPoint.js');
+const { AccessPoint } = require('./model/accessPoint.js');
 
 const RELAVANT_ROW_INDICES = [0, 3, 5, 6, 7, 13];
 
-class utils {
+class Utils {
   constructor() {
     this.getRandomMac = () => {
       const hexDigits = '0123456789ABCDEF';
@@ -55,7 +55,7 @@ class utils {
           continue;
         }
         const filteredRow = this.filterRow(row.split(','));
-        const wap = new accessPoint(...filteredRow);
+        const wap = new AccessPoint(...filteredRow);
         accessPoints[wap.bssid] = wap;
       }
       return accessPoints;
@@ -63,4 +63,4 @@ class utils {
   }
 }
 
-module.exports.utils = new utils();
+module.exports.Utils = new Utils();
