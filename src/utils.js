@@ -1,3 +1,8 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-console */
+/* eslint-disable new-cap */
+/* eslint-disable import/extensions */
 /* eslint-disable no-use-before-define */
 /*
 * Collection of utility functions.
@@ -6,8 +11,9 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const readline = require('readline');
+const { accessPoint } = require('./accessPoint.js');
 
-const RELAVANT_ROW_INDICES = [0, 3, 5, 6, 7, 14];
+const RELAVANT_ROW_INDICES = [0, 3, 5, 6, 7, 13];
 
 function getRandomMac() {
   const hexDigits = '0123456789ABCDEF';
@@ -31,29 +37,30 @@ function deleteClientsFromCsv(csv) {
   execSync(`sed -i '/${delimiter}/Q' ${csv}`);
 }
 
-function readAccessPointsFromCsv(csv) {
+async function readAccessPointsFromCsv(csv) {
   const accessPoints = [];
   const readStream = fs.createReadStream(csv);
-  const reader = readline.createInterface({ input: readStream });
-  let rowCount = 0;
-  reader.on('line', (row) => {
-    if (row === '' || rowCount === 0) {
-      rowCount += 1;
-      return;
+  const reader = readline.createInterface({
+    input: readStream,
+    crlfDelay: Infinity,
+  });
+  for await (const row of reader) {
+    if (row.trim() === '' || row.includes('BSSID')) {
+      continue;
     }
     const filteredRow = filterRow(row.split(','));
-    accessPoints.push(...filteredRow);
-    rowCount += 1;
-  });
+    const wap = new accessPoint(...filteredRow);
+    accessPoints[wap.bssid] = wap;
+  }
   return accessPoints;
 }
 
 function filterRow(row) {
   const filteredRow = [];
   for (let i = 0; i < RELAVANT_ROW_INDICES.length; i += 1) {
-    filteredRow.push(row[RELAVANT_ROW_INDICES[i]]);
+    filteredRow.push(row[RELAVANT_ROW_INDICES[i]].trim());
   }
-  return filterRow;
+  return filteredRow;
 }
 
 module.exports.getRandomMac = getRandomMac;

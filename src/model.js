@@ -70,7 +70,7 @@ class model {
     this.stopScanningAccessPoints = async () => {
       this.scanProcess.kill('SIGINT');
       utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
-      utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
+      this.accessPoints = utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
     };
 
     this.reset = () => {
