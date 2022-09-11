@@ -12,21 +12,21 @@ class Controller {
     this.model = model;
   }
 
-  getNetworkInterfaceControllers() {
+  public getNetworkInterfaceControllers() {
     this.model.scanNetworkInterfaceControllers();
     return Object.keys(this.model.networkInterfaceControllers);
   }
 
-  getAccessPoints() {
+  public getAccessPoints() {
     this.model.stopScanningAccessPoints();
     return Object.keys(this.model.accessPoints);
   }
 
-  setInterfaceSelection(_event: Event, iface: string) {
+  public setInterfaceSelection(_event: Event, iface: string) {
     this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
   }
 
-  setInterfaceMac(_event: Event, randomized: boolean) {
+  public setInterfaceMac(_event: Event, randomized: boolean) {
     this.model.macRandomized = randomized;
     if (this.model.macRandomized) {
       if (this.model.usedNetworkInterfaceController.changedMac) {
@@ -39,7 +39,7 @@ class Controller {
     }
   }
 
-  setBandSelection(_event: Event, bandValues: string []) {
+  public setBandSelection(_event: Event, bandValues: string []) {
     this.model.bandFlags = bandValues;
   }
 }

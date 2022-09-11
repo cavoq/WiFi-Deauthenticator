@@ -23,7 +23,7 @@ class AccessPoint {
     this.clients = [];
   }
 
-  display = () => `${this.essid}, ${this.bssid}`;
+  public display = () => `${this.essid}, ${this.bssid}`;
 }
 
 export default AccessPoint;

@@ -10,7 +10,7 @@ import { execSync } from 'child_process';
 const RELAVANT_ROW_INDICES: number[] = [0, 3, 5, 6, 7, 13];
 
 class Utils {
-  static getRandomMac() {
+  public static getRandomMac() {
     const hexDigits = '0123456789ABCDEF';
     let macAddress = '';
     for (let i = 0; i < 6; i += 1) {
@@ -21,18 +21,18 @@ class Utils {
     return macAddress;
   }
 
-  static sleep(ms: number) {
+  public static sleep(ms: number) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });
   }
 
-  static deleteClientsFromCsv(csv: string) {
+  public static deleteClientsFromCsv(csv: string) {
     const delimiter = 'Station MAC';
     execSync(`sed -i '/${delimiter}/Q' ${csv}`);
   }
 
-  static filterRow(row: string[]) {
+  private static filterRow(row: string[]) {
     const filteredRow = [];
     for (let i = 0; i < RELAVANT_ROW_INDICES.length; i += 1) {
       filteredRow.push(row[RELAVANT_ROW_INDICES[i]].trim());
@@ -40,7 +40,7 @@ class Utils {
     return filteredRow;
   }
 
-  static async readAccessPointsFromCsv(csv: string) {
+  public static async readAccessPointsFromCsv(csv: string) {
     const accessPoints: AccessPoint[] = [];
     const readStream = fs.createReadStream(csv);
     const reader = readline.createInterface({

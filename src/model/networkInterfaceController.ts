@@ -24,7 +24,7 @@ class NetworkInterfaceController {
     this.changedMac = false;
   }
 
-  setMonitorMode() {
+  public setMonitorMode() {
     try {
       execSync('airmon-ng check kill');
       execSync(`airmon-ng start ${this.name}`);
@@ -34,7 +34,7 @@ class NetworkInterfaceController {
     }
   }
 
-  setManagedMode() {
+  public setManagedMode() {
     try {
       execSync(`airmon-ng stop ${this.name}`);
       execSync('service NetworkManager restart');
@@ -44,7 +44,7 @@ class NetworkInterfaceController {
     }
   }
 
-  changeMac(mac: string) {
+  public changeMac(mac: string) {
     try {
       execSync(`sudo ifconfig ${this.name} down`);
       execSync(`sudo ifconfig ${this.name} hw ether ${mac}`);
@@ -57,7 +57,7 @@ class NetworkInterfaceController {
     }
   }
 
-  resetMac() {
+  public resetMac() {
     try {
       const originalMac = execSync(`sudo ethtool -P ${this.name} | awk '{print $3}'`).toString().trim();
       this.changeMac(originalMac);
