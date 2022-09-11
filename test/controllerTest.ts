@@ -10,7 +10,7 @@ import Controller from '../src/controller/controller';
 
 const MOCK_INTERFACE = 'wlan1';
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const MOCK_EVENT = function callable() { };
+const MOCK_EVENT = new Event('click');
 
 describe('Class: Controller', () => {
   const testModel = new Model();

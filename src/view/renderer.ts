@@ -1,13 +1,12 @@
-/* eslint-disable no-use-before-define */
 /*
 * Renderer that handles frontend functionality.
 */
 
-const interfaceSelect = document.getElementById('interfaceSelect');
-const randomMacCheckBox = document.getElementById('randomMacCheckBox');
-const bandFieldSet = document.getElementById('bandFieldSet');
-const startScanningBtn = document.getElementById('startScanningBtn');
-const stopScanningBtn = document.getElementById('stopScanningBtn');
+const interfaceSelect: HTMLSelectElement = document.getElementById('interfaceSelect') as HTMLSelectElement;
+const randomMacCheckBox: HTMLInputElement = document.getElementById('randomMacCheckBox') as HTMLInputElement;
+const bandFieldSet: HTMLFieldSetElement = document.getElementById('bandFieldSet') as HTMLFieldSetElement;
+const startScanningBtn: HTMLButtonElement = document.getElementById('startScanningBtn') as HTMLButtonElement;
+const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanningBtn') as HTMLButtonElement;
 
 async function initializeUi() {
   initializeSelect();
@@ -18,6 +17,9 @@ async function initializeUi() {
 }
 
 async function initializeBand() {
+  if (!bandFieldSet) {
+    return;
+  }
   const { children } = bandFieldSet;
   for (let i = 1; i < children.length; i += 1) {
     const bandDiv = children[i];
@@ -28,11 +30,14 @@ async function initializeBand() {
 }
 
 function getSelectedBandValues() {
-  const bandArray = [];
+  const bandArray: string[] = [];
+  if (!bandFieldSet) {
+    return;
+  }
   const { children } = bandFieldSet;
   for (let i = 1; i < children.length; i += 1) {
-    const bandDiv = children[i];
-    const band = bandDiv.children[0];
+    const bandDiv: HTMLDivElement = children[i] as HTMLDivElement;
+    const band: HTMLInputElement = bandDiv.children[0] as HTMLInputElement;
     if (band.checked) {
       bandArray.push(band.defaultValue);
     }
@@ -67,6 +72,9 @@ async function bandSelectionChangeHandler() {
 
 async function startScanningHandler() {
   const selectedBandValues = getSelectedBandValues();
+  if (!selectedBandValues) {
+    return;
+  }
   if (selectedBandValues.length === 0) {
     await window.MSG.openMessageBox('No network band selected, you need to select at least one network band.');
     return;

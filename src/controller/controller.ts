@@ -7,7 +7,7 @@ import Model from '../model/model';
 
 class Controller {
   model: Model;
-  
+
   constructor(model: Model) {
     this.model = model;
   }
@@ -17,11 +17,15 @@ class Controller {
     return Object.keys(this.model.networkInterfaceControllers);
   }
 
-  setInterfaceSelection(_event, iface) {
+  getAccessPoints() {
+    return Object.keys(this.model.accessPoints);
+  }
+
+  setInterfaceSelection(_event: Event, iface: string) {
     this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
   }
 
-  setInterfaceMac(_event, randomized) {
+  setInterfaceMac(_event: Event, randomized: boolean) {
     this.model.macRandomized = randomized;
     if (this.model.macRandomized) {
       if (this.model.usedNetworkInterfaceController.changedMac) {
@@ -34,7 +38,7 @@ class Controller {
     }
   }
 
-  setBandSelection(_event, bandValues) {
+  setBandSelection(_event: Event, bandValues: string []) {
     this.model.bandFlags = bandValues;
   }
 }

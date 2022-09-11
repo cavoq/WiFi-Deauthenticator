@@ -5,8 +5,8 @@
   "description": "My Electron application description",
   "main": "build/main.js",
   "scripts": {
-    "start": "npm run compile && electron /build/main.js",
-    "compile": "tsc && copyfiles -f /src/public build",
+    "start": "npm run compile && electron build/main.js",
+    "compile": "tsc && copyfiles -f src/public/* build/public/",
     "test": "nyc mocha -r ts-node/register test/*",
     "package": "electron-forge package",
     "make": "electron-forge make",

@@ -4,10 +4,14 @@
         "module": "commonjs",
         "strict": true,
         "esModuleInterop": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "outDir": "./build",
         "baseUrl": "./src",
-        "suppressImplicitAnyIndexErrors": true
+        "suppressImplicitAnyIndexErrors": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/types/"
+        ],
     },
     "include": [
         "src/*"
