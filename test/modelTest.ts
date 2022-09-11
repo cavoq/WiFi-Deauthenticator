@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
-/* eslint-disable import/extensions */
 
 /*
 * Test for data model.
 */
 
-const assert = require('assert');
-const { Model } = require('../src/model/model.js');
+import assert from 'assert';
+import Model from '../src/model/model';
 
 describe('Class: Model', () => {
   const testModel = new Model();

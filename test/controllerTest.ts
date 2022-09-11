@@ -1,15 +1,15 @@
 /* eslint-disable no-undef */
-/* eslint-disable import/extensions */
 
 /*
 * Test for controller.
 */
 
-const assert = require('assert');
-const { Model } = require('../src/model/model.js');
-const { Controller } = require('../src/controller/controller.js');
+import assert from 'assert';
+import Model from '../src/model/model';
+import Controller from '../src/controller/controller';
 
 const MOCK_INTERFACE = 'wlan1';
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const MOCK_EVENT = function callable() { };
 
 describe('Class: Controller', () => {
@@ -17,7 +17,7 @@ describe('Class: Controller', () => {
   const testController = new Controller(testModel);
 
   it('Func: getNetworkInterfaceControllers', () => {
-    nics = testController.getNetworkInterfaceControllers();
+    const nics = testController.getNetworkInterfaceControllers();
     assert.equal(nics[1], MOCK_INTERFACE);
   });
 

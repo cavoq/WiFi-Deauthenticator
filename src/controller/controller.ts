@@ -2,15 +2,18 @@
 * Module implementing the controller.
 */
 
-const { Utils } = require('../utils');
+import Utils from '../utils';
+import Model from '../model/model';
 
 class Controller {
-  constructor(model) {
+  model: Model;
+  
+  constructor(model: Model) {
     this.model = model;
   }
 
   getNetworkInterfaceControllers() {
-    this.model.scanNetworkInterfaceContollers();
+    this.model.scanNetworkInterfaceControllers();
     return Object.keys(this.model.networkInterfaceControllers);
   }
 
@@ -32,8 +35,8 @@ class Controller {
   }
 
   setBandSelection(_event, bandValues) {
-    this.model.bandValues = bandValues;
+    this.model.bandFlags = bandValues;
   }
 }
 
-module.exports.Controller = Controller;
+export default Controller;

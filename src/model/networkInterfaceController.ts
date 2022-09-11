@@ -1,15 +1,23 @@
-/* eslint-disable import/extensions */
-
 /*
 * Model for network interface controller.
 */
 
-const { execSync } = require('child_process');
-const { errorlog } = require('../logger.js');
-const { successlog } = require('../logger.js');
+import { execSync } from 'child_process';
+import { NetworkInterfaceInfo } from 'os';
+import { errorlog } from '../logger';
+import { successlog } from '../logger';
 
 class NetworkInterfaceController {
-  constructor(iface) {
+  name: string;
+  address: string;
+  mac: string;
+  family: string;
+  internal: boolean;
+  changedMac: boolean;
+
+  constructor(iface: NetworkInterfaceInfo) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.name = iface.name;
     this.address = iface.address;
     this.mac = iface.mac;
@@ -38,7 +46,7 @@ class NetworkInterfaceController {
     }
   }
 
-  changeMac(mac) {
+  changeMac(mac: string) {
     try {
       execSync(`sudo ifconfig ${this.name} down`);
       execSync(`sudo ifconfig ${this.name} hw ether ${mac}`);
@@ -63,4 +71,4 @@ class NetworkInterfaceController {
   }
 }
 
-module.exports.NetworkInterfaceController = NetworkInterfaceController;
+export default NetworkInterfaceController;

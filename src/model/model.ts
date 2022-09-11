@@ -6,15 +6,23 @@
 * Implementation of data model.
 */
 
-const os = require('os');
-const { spawn } = require('child_process');
-const { NetworkInterfaceController } = require('./networkInterfaceController');
-const { Utils } = require('../utils');
+import os from 'os';
+import { ChildProcess, spawn } from 'child_process';
+import NetworkInterfaceController from './networkInterfaceController';
+import Utils from '../utils';
+import AccessPoint from './accessPoint';
 
 const CAPTURED_WAPS = './capturedwaps/capturedWAPS';
 const CSV_PREFIX = '-01.csv';
 
 class Model {
+  networkInterfaceControllers: NetworkInterfaceController[];
+  accessPoints: AccessPoint[];
+  usedNetworkInterfaceController!: NetworkInterfaceController;
+  macRandomized: boolean;
+  bandFlags: string[];
+  scanProcess!: ChildProcess;
+
   constructor() {
     this.networkInterfaceControllers = [];
     this.accessPoints = [];
@@ -28,11 +36,16 @@ class Model {
     const interfaces = os.networkInterfaces();
     this.networkInterfaceControllers = [];
     for (const [address, iface] of Object.entries(interfaces)) {
+      if (!iface) {
+        return;
+      }
       if (address === 'lo' || address === 'eth0') {
         continue;
       }
       for (let i = 0; i < iface.length; i += 1) {
         if (iface[i].family === 'IPv4' && iface[i].internal === false) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           iface[i].name = address;
           const nic = new NetworkInterfaceController(iface[i]);
           this.networkInterfaceControllers[address] = nic;
@@ -59,4 +72,4 @@ class Model {
   }
 }
 
-module.exports.Model = Model;
+export default Model;

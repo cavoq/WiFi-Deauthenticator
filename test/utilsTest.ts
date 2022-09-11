@@ -4,9 +4,9 @@
 * Test for utils class
 */
 
-const assert = require('assert');
-const { execSync } = require('child_process');
-const { Utils } = require('../src/utils');
+import assert from 'assert';
+import { execSync } from 'child_process';
+import Utils from '../src/utils';
 
 const CAPTURED_WAPS_TEST = `${__dirname}/input/sampleAccessPoints.csv`;
 const CAPTURED_WAPS_TMP = `${__dirname}/tmp/sampleAccessPoints.csv`;

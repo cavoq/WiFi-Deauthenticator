@@ -4,9 +4,9 @@
 * Test for network interface controller model.
 */
 
-const assert = require('assert');
-const { NetworkInterfaceController } = require('../src/model/networkInterfaceController');
-const { Utils } = require('../src/utils');
+import assert from 'assert';
+import NetworkInterfaceController from '../src/model/networkInterfaceController';
+import Utils from '../src/utils';
 
 const MOCK_INTERFACE = {
   name: 'wlan1',

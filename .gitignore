@@ -2,6 +2,10 @@
 
 /capturedwaps
 
+# build
+
+/build
+
 # Logs
 *.log
 npm-debug.log*

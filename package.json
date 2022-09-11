@@ -3,17 +3,19 @@
   "productName": "wifi-deauthenticator",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": "src/main.js",
+  "main": "build/main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "test": "nyc mocha",
+    "start": "npm run compile && electron /build/main.js",
+    "compile": "tsc && copyfiles -f /src/public build",
+    "test": "nyc mocha -r ts-node/register test/*",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "eslint . --ext .ts",
+    "clear": "rm -rf build/* logs/*"
   },
   "keywords": [],
-  "author": "dave",
+  "author": "David Stromberger",
   "license": "MIT",
   "config": {
     "forge": {
@@ -57,11 +59,16 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.65",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
     "@electron-forge/maker-zip": "^6.0.0-beta.65",
-    "electron": "20.1.0",
+    "@types/mocha": "^9.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "electron": "^20.1.0",
     "eslint": "^8.23.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "mocha": "^10.0.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
   }
 }
