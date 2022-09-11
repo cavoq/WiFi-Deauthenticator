@@ -6,9 +6,9 @@ import Utils from '../utils';
 import Model from '../model/model';
 
 class Controller {
-  model: Model;
+  model: Model = new Model;
 
-  constructor(model: Model) {
+  constructor(model: Model = new Model()) {
     this.model = model;
   }
 
@@ -18,6 +18,7 @@ class Controller {
   }
 
   getAccessPoints() {
+    this.model.stopScanningAccessPoints();
     return Object.keys(this.model.accessPoints);
   }
 

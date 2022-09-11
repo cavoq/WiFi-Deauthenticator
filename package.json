@@ -13,7 +13,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint . --ext .ts",
-    "clear": "rm -rf build/* logs/*"
+    "clear": "rm -rf build/* logs/* coverage/*"
   },
   "keywords": [],
   "author": "David Stromberger",

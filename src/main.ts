@@ -3,7 +3,6 @@
 */
 
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
-import Model from './model/model';
 import path from 'path';
 import Controller from './controller/controller';
 
@@ -12,7 +11,7 @@ class Main {
   mainWindow: BrowserWindow | undefined;
   application: Electron.App;
 
-  constructor(application: Electron.App, controller: Controller) {
+  constructor(application: Electron.App, controller: Controller = new Controller()) {
     this.controller = controller;
     this.application = application;
   }
@@ -50,11 +49,11 @@ class Main {
         darkTheme: true,
         icon: 'public/wlan-signal.png',
       })
+    this.mainWindow.loadFile('public/main.html');
     this.mainWindow.on('closed', () => {
       this.controller.model.reset();
       this.application.quit();
     });
-    this.mainWindow.loadFile('public/main.html');
   }
 
   initialize() {
@@ -75,11 +74,5 @@ class Main {
   }
 }
 
-function run(){
-  const model: Model = new Model();
-  const controller: Controller = new Controller(model);
-  const main = new Main(app, controller);
-  main.initialize();
-}
-
-run();
+const main: Main = new Main(app);
+main.initialize();
