@@ -15,10 +15,8 @@ class NetworkInterfaceController {
   internal: boolean;
   changedMac: boolean;
 
-  constructor(iface: NetworkInterfaceInfo) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.name = iface.name;
+  constructor(iface: NetworkInterfaceInfo, name: string) {
+    this.name = name;
     this.address = iface.address;
     this.mac = iface.mac;
     this.family = iface.family;

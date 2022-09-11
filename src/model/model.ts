@@ -1,7 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-continue */
-/* eslint-disable no-unused-expressions */
-
 /*
 * Implementation of data model.
 */
@@ -33,7 +29,7 @@ class Model {
   }
 
   scanNetworkInterfaceControllers() {
-    const interfaces = os.networkInterfaces();
+    const interfaces: NodeJS.Dict<os.NetworkInterfaceInfo[]> = os.networkInterfaces();
     this.networkInterfaceControllers = [];
     for (const [address, iface] of Object.entries(interfaces)) {
       if (!iface) {
@@ -44,10 +40,7 @@ class Model {
       }
       for (let i = 0; i < iface.length; i += 1) {
         if (iface[i].family === 'IPv4' && iface[i].internal === false) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          iface[i].name = address;
-          const nic = new NetworkInterfaceController(iface[i]);
+          const nic = new NetworkInterfaceController(iface[i], address);
           this.networkInterfaceControllers[address] = nic;
         }
       }
