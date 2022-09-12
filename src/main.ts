@@ -35,6 +35,7 @@ class Main {
     ipcMain.handle('setBandSelection', this.controller.setBandSelection);
     ipcMain.handle('startScanning', this.controller.model.scanAccessPoints);
     ipcMain.handle('getAccessPoints', this.controller.getAccessPoints);
+    ipcMain.handle('setAccessPointSelection', this.controller.setAccessPointSelection);
     ipcMain.handle('openMessageBox', this.openMessageBox);
   }
 

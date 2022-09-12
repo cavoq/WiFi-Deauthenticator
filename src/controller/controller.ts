@@ -10,7 +10,6 @@ class Controller {
 
   constructor(model: Model) {
     this.model = model;
-    console.log(this.model);
   }
 
   public getNetworkInterfaceControllers = async () => {
@@ -40,8 +39,12 @@ class Controller {
     }
   }
 
-  public setBandSelection = (_event: Event, bandValues: string []) => {
+  public setBandSelection = (_event: Event, bandValues: string[]) => {
     this.model.bandFlags = bandValues;
+  }
+
+  public setAccessPointSelection = (_event: Event, accessPoint: string) => {
+    this.model.usedAccessPoint = this.model.accessPoints[accessPoint];
   }
 }
 

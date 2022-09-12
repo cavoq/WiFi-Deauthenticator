@@ -18,11 +18,13 @@ class Model {
   macRandomized: boolean;
   bandFlags: string[];
   scanProcess!: ChildProcess;
+  usedAccessPoint!: AccessPoint;
 
   constructor() {
     this.networkInterfaceControllers = [];
     this.accessPoints = [];
     this.usedNetworkInterfaceController;
+    this.usedAccessPoint;
     this.macRandomized = false;
     this.bandFlags = [];
     this.scanProcess;

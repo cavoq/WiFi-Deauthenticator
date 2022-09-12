@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('API', {
   setBandSelection: (bandValues: string[]) => ipcRenderer.invoke('setBandSelection', bandValues),
   startScanning: () => ipcRenderer.invoke('startScanning'),
   getAccessPoints: () => ipcRenderer.invoke('getAccessPoints'),
+  setAccessPointSelection: (accessPoint: string) => ipcRenderer.invoke('setAccessPointSelection', accessPoint),
 });
 
 contextBridge.exposeInMainWorld('MSG', {

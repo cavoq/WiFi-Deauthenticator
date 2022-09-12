@@ -7,10 +7,11 @@ const randomMacCheckBox: HTMLInputElement = document.getElementById('randomMacCh
 const bandFieldSet: HTMLFieldSetElement = document.getElementById('bandFieldSet') as HTMLFieldSetElement;
 const startScanningBtn: HTMLButtonElement = document.getElementById('startScanningBtn') as HTMLButtonElement;
 const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanningBtn') as HTMLButtonElement;
+const accessPointSelect: HTMLSelectElement = document.getElementById('accessPointSelect') as HTMLSelectElement;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
-  await initializeSelect();
+  await setInterfaceSelect();
   await initializeBand();
   randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
   startScanningBtn.addEventListener('click', startScanningHandler);
@@ -46,7 +47,7 @@ function getSelectedBandValues() {
   return bandArray;
 }
 
-async function initializeSelect() {
+async function setInterfaceSelect() {
   const networkInterfaceControllers = await window.API.getNetworkInterfaceControllers();
   for (let i = 0; i < networkInterfaceControllers.length; i += 1) {
     const opt = document.createElement('option');
@@ -88,5 +89,21 @@ async function startScanningHandler() {
 }
 
 async function stopScanningHandler() {
-  await window.API.getAccessPoints();
+  const accessPoints: string[] = await window.API.getAccessPoints();
+  setAccessPointSelect(accessPoints);
+}
+
+function setAccessPointSelect(accessPoints: string[]) {
+  for (let i = 0; i < accessPoints.length; i += 1) {
+    const opt = document.createElement('option');
+    opt.value = accessPoints[i];
+    opt.innerHTML = accessPoints[i];
+    accessPointSelect.appendChild(opt);
+  }
+  accessPointSelect.addEventListener('change', accessPointSelectChangeHandler);
+  accessPointSelectChangeHandler();
+}
+
+async function accessPointSelectChangeHandler() {
+  await window.API.setAccessPointSelection();
 }
