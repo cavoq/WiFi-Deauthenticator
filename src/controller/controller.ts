@@ -6,27 +6,28 @@ import Utils from '../utils';
 import Model from '../model/model';
 
 class Controller {
-  model: Model = new Model;
+  model: Model;
 
-  constructor(model: Model = new Model()) {
+  constructor(model: Model) {
     this.model = model;
+    console.log(this.model);
   }
 
-  public getNetworkInterfaceControllers() {
+  public getNetworkInterfaceControllers = async () => {
     this.model.scanNetworkInterfaceControllers();
     return Object.keys(this.model.networkInterfaceControllers);
   }
 
-  public getAccessPoints() {
-    this.model.stopScanningAccessPoints();
+  public getAccessPoints = async () => {
+    await this.model.stopScanningAccessPoints();
     return Object.keys(this.model.accessPoints);
   }
 
-  public setInterfaceSelection(_event: Event, iface: string) {
+  public setInterfaceSelection = (_event: Event, iface: string) => {
     this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
   }
 
-  public setInterfaceMac(_event: Event, randomized: boolean) {
+  public setInterfaceMac = (_event: Event, randomized: boolean) => {
     this.model.macRandomized = randomized;
     if (this.model.macRandomized) {
       if (this.model.usedNetworkInterfaceController.changedMac) {
@@ -39,7 +40,7 @@ class Controller {
     }
   }
 
-  public setBandSelection(_event: Event, bandValues: string []) {
+  public setBandSelection = (_event: Event, bandValues: string []) => {
     this.model.bandFlags = bandValues;
   }
 }

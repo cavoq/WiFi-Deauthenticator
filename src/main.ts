@@ -5,18 +5,19 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
 import Controller from './controller/controller';
+import Model from './model/model';
 
 class Main {
   controller: Controller;
   mainWindow: BrowserWindow | undefined;
   application: Electron.App;
 
-  constructor(application: Electron.App, controller: Controller = new Controller()) {
+  constructor(application: Electron.App, controller: Controller) {
     this.controller = controller;
     this.application = application;
   }
 
-  openMessageBox(_event: Event, message: string) {
+  openMessageBox = (_event: Event, message: string) => {
     const options = {
       title: 'Unable to start scanning',
       message,
@@ -27,7 +28,7 @@ class Main {
     dialog.showMessageBox(this.mainWindow, options);
   }
 
-  addHandlers() {
+  addHandlers = () => {
     ipcMain.handle('getNetworkInterfaceControllers', this.controller.getNetworkInterfaceControllers);
     ipcMain.handle('setInterfaceSelection', this.controller.setInterfaceSelection);
     ipcMain.handle('setInterfaceMac', this.controller.setInterfaceMac);
@@ -37,7 +38,7 @@ class Main {
     ipcMain.handle('openMessageBox', this.openMessageBox);
   }
 
-  createWindow() {
+  createWindow = () => {
     this.mainWindow = new BrowserWindow(
       {
         width: 800,
@@ -45,6 +46,7 @@ class Main {
         webPreferences: {
           nodeIntegration: true,
           preload: path.join(__dirname, 'preload.js'),
+          contextIsolation: true,
         },
         darkTheme: true,
         icon: 'public/wlan-signal.png',
@@ -56,7 +58,7 @@ class Main {
     });
   }
 
-  initialize() {
+  initialize = () =>{
     this.application.whenReady().then(() => {
       this.createWindow();
       this.addHandlers();
@@ -74,5 +76,7 @@ class Main {
   }
 }
 
-const main: Main = new Main(app);
+const model: Model = new Model();
+const controller: Controller = new Controller(model);
+const main: Main = new Main(app, controller);
 main.initialize();

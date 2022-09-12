@@ -7,10 +7,11 @@ const randomMacCheckBox: HTMLInputElement = document.getElementById('randomMacCh
 const bandFieldSet: HTMLFieldSetElement = document.getElementById('bandFieldSet') as HTMLFieldSetElement;
 const startScanningBtn: HTMLButtonElement = document.getElementById('startScanningBtn') as HTMLButtonElement;
 const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanningBtn') as HTMLButtonElement;
+document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
-  initializeSelect();
-  initializeBand();
+  await initializeSelect();
+  await initializeBand();
   randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
   startScanningBtn.addEventListener('click', startScanningHandler);
   stopScanningBtn.addEventListener('click', stopScanningHandler);
@@ -58,16 +59,16 @@ async function initializeSelect() {
 }
 
 async function randomMacChangeHandler() {
-  await window.API.updateInterfaceMac(randomMacCheckBox.checked);
+  await window.API.setInterfaceMac(randomMacCheckBox.checked);
 }
 
 async function interfaceSelectChangeHandler() {
-  await window.API.updateInterfaceSelection(interfaceSelect.value);
+  await window.API.setInterfaceSelection(interfaceSelect.value);
 }
 
 async function bandSelectionChangeHandler() {
   const bandValues = getSelectedBandValues();
-  await window.API.updateBandSelection(bandValues);
+  await window.API.setBandSelection(bandValues);
 }
 
 async function startScanningHandler() {
@@ -89,5 +90,3 @@ async function startScanningHandler() {
 async function stopScanningHandler() {
   await window.API.getAccessPoints();
 }
-
-initializeUi();

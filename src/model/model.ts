@@ -28,7 +28,7 @@ class Model {
     this.scanProcess;
   }
 
-  public scanNetworkInterfaceControllers() {
+  public scanNetworkInterfaceControllers = () => {
     const interfaces: NodeJS.Dict<os.NetworkInterfaceInfo[]> = os.networkInterfaces();
     this.networkInterfaceControllers = [];
     for (const [address, iface] of Object.entries(interfaces)) {
@@ -47,18 +47,18 @@ class Model {
     }
   }
 
-  public async scanAccessPoints() {
+  public scanAccessPoints = async () => {
     this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
       CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
   }
 
-  public async stopScanningAccessPoints() {
+  public stopScanningAccessPoints = async () => {
     this.scanProcess.kill('SIGINT');
     Utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
     this.accessPoints = await Utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
   }
 
-  public reset() {
+  public reset = () => {
     for (let i = 0; i < this.networkInterfaceControllers.length; i += 1) {
       this.networkInterfaceControllers[i].resetMac();
     }
