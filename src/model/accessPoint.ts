@@ -39,7 +39,8 @@ class AccessPoint {
 
   public stopScanning = async () => {
     this.scanProcess.kill('SIGINT');
-    //Utils.readClientsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
+    Utils.deleteAccessPointsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
+    Utils.readClientsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
   }
 }
 

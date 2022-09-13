@@ -49,6 +49,7 @@ class Controller {
   }
 
   public setAccessPointSelection = (_event: Event, accessPoint: string) => {
+    console.log(accessPoint);
     this.model.usedAccessPoint = this.model.accessPoints[accessPoint];
   }
 }

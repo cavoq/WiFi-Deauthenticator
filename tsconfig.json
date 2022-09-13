@@ -4,9 +4,10 @@
         "module": "commonjs",
         "strict": true,
         "esModuleInterop": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "outDir": "./build",
         "baseUrl": "./src",
+        "moduleResolution": "node",
         "suppressImplicitAnyIndexErrors": true,
         "typeRoots": [
             "./node_modules/@types",

@@ -109,7 +109,7 @@ function setAccessPointSelect(accessPoints: string[]) {
 }
 
 async function accessPointSelectChangeHandler() {
-  await window.API.setAccessPointSelection();
+  await window.API.setAccessPointSelection(accessPointSelect.value);
 }
 
 async function startScanningClientsHandler() {

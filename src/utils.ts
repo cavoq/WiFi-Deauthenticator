@@ -8,7 +8,8 @@ import fs from 'fs';
 import * as readline from 'node:readline';
 import { execSync } from 'child_process';
 
-const RELAVANT_ROW_INDICES: number[] = [0, 3, 5, 6, 7, 13];
+const RELEVANT_ROW_INDICES: number[] = [0, 3, 5, 6, 7, 13];
+const RELEVANT_ROW_INDICES_CLIS: number[] = [0, 5];
 
 class Utils {
   public static getRandomMac() {
@@ -33,10 +34,15 @@ class Utils {
     execSync(`sed -i '/${delimiter}/Q' ${csv}`);
   }
 
-  private static filterRow(row: string[]) {
+  public static deleteAccessPointsFromCsv(csv: string) {
+    const match = 'Station MAC';
+    execSync(`sed -n '/${match}/,$p' ${csv}`);
+  }
+
+  private static filterRow(row: string[], rowIndices: number[]) {
     const filteredRow = [];
-    for (let i = 0; i < RELAVANT_ROW_INDICES.length; i += 1) {
-      filteredRow.push(row[RELAVANT_ROW_INDICES[i]].trim());
+    for (let i = 0; i < rowIndices.length; i += 1) {
+      filteredRow.push(row[rowIndices[i]].trim());
     }
     return filteredRow;
   }
@@ -52,7 +58,7 @@ class Utils {
       if (row.trim() === '' || row.includes('BSSID')) {
         continue;
       }
-      const filteredRow = this.filterRow(row.split(','));
+      const filteredRow = this.filterRow(row.split(','), RELEVANT_ROW_INDICES);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const wap: AccessPoint = new AccessPoint(...filteredRow);
@@ -68,6 +74,17 @@ class Utils {
       input: readStream,
       crlfDelay: Infinity,
     });
+    for await (const row of reader) {
+      if (row.trim() === '' || row.includes('Station MAC')) {
+        continue;
+      }
+      const filteredRow = this.filterRow(row.split(','), RELEVANT_ROW_INDICES_CLIS);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const cli: Client = new Client(...filteredRow);
+      clients[cli.stationMac] = cli;
+    }
+    return clients;
   }
 }
 
