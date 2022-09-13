@@ -1,6 +1,11 @@
 # Captures
 
-/capturedwaps
+/capturedwaps/*
+/capturedclis/*
+
+# Temporary test files
+
+/test/tmp/*
 
 # build
 
