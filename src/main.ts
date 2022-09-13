@@ -37,6 +37,8 @@ class Main {
     ipcMain.handle('getAccessPoints', this.controller.getAccessPoints);
     ipcMain.handle('setAccessPointSelection', this.controller.setAccessPointSelection);
     ipcMain.handle('openMessageBox', this.openMessageBox);
+    ipcMain.handle('startScanningClients', this.controller.model.scanClients);
+    ipcMain.handle('getClients', this.controller.getClients);
   }
 
   createWindow = () => {

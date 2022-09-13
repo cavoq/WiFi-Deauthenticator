@@ -12,6 +12,8 @@ contextBridge.exposeInMainWorld('API', {
   startScanning: () => ipcRenderer.invoke('startScanning'),
   getAccessPoints: () => ipcRenderer.invoke('getAccessPoints'),
   setAccessPointSelection: (accessPoint: string) => ipcRenderer.invoke('setAccessPointSelection', accessPoint),
+  startScanningClients: () => ipcRenderer.invoke('startScanningClients'),
+  getClients: () => ipcRenderer.invoke('getClients'),
 });
 
 contextBridge.exposeInMainWorld('MSG', {

@@ -3,6 +3,7 @@
 */
 
 import AccessPoint from './model/accessPoint';
+import Client from './model/client';
 import fs from 'fs';
 import * as readline from 'node:readline';
 import { execSync } from 'child_process';
@@ -58,6 +59,15 @@ class Utils {
       accessPoints[wap.bssid] = wap;
     }
     return accessPoints;
+  }
+
+  public static async readClientsFromCsv(csv: string) {
+    const clients: Client[] = [];
+    const readStream = fs.createReadStream(csv);
+    const reader = readline.createInterface({
+      input: readStream,
+      crlfDelay: Infinity,
+    });
   }
 }
 

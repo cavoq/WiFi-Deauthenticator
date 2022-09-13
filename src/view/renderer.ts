@@ -8,6 +8,8 @@ const bandFieldSet: HTMLFieldSetElement = document.getElementById('bandFieldSet'
 const startScanningBtn: HTMLButtonElement = document.getElementById('startScanningBtn') as HTMLButtonElement;
 const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanningBtn') as HTMLButtonElement;
 const accessPointSelect: HTMLSelectElement = document.getElementById('accessPointSelect') as HTMLSelectElement;
+const startScanningClisBtn: HTMLButtonElement = document.getElementById('startScanningClisBtn') as HTMLButtonElement;
+const stopScanningClisBtn: HTMLButtonElement = document.getElementById('stopScanningClisBtn') as HTMLButtonElement;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
@@ -16,6 +18,8 @@ async function initializeUi() {
   randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
   startScanningBtn.addEventListener('click', startScanningHandler);
   stopScanningBtn.addEventListener('click', stopScanningHandler);
+  startScanningClisBtn.addEventListener('click', startScanningClientsHandler);
+  stopScanningClisBtn.addEventListener('click', stopScanningClientsHandler);
 }
 
 async function initializeBand() {
@@ -106,4 +110,17 @@ function setAccessPointSelect(accessPoints: string[]) {
 
 async function accessPointSelectChangeHandler() {
   await window.API.setAccessPointSelection();
+}
+
+async function startScanningClientsHandler() {
+  await window.API.startScanningClients();
+}
+
+async function stopScanningClientsHandler() {
+  const clients: string [] = await window.API.getClients();
+  setClientCheckBoxList(clients); 
+}
+
+function setClientCheckBoxList(clients: string []){
+  console.log(clients);
 }

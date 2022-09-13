@@ -65,6 +65,10 @@ class Model {
       this.networkInterfaceControllers[i].resetMac();
     }
   }
+
+  public scanClients = () => {
+    this.usedAccessPoint.scanClients(this.usedNetworkInterfaceController.name);
+  }
 }
 
 export default Model;

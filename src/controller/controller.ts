@@ -22,6 +22,11 @@ class Controller {
     return Object.keys(this.model.accessPoints);
   }
 
+  public getClients = async () => {
+    await this.model.usedAccessPoint.stopScanning();
+    return Object.keys(this.model.usedAccessPoint.clients);
+  }
+
   public setInterfaceSelection = (_event: Event, iface: string) => {
     this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
   }
