@@ -39,6 +39,6 @@ describe('Class: Utils', () => {
 
   it('Func: readClientsFromCsv', async () => {
     const clients = await Utils.readClientsFromCsv(CAPTURED_CLIENTS_OUTPUT);
-    assert.equal(clients['48:5A:B6:35:D9:25'].essid, '');
+    assert.equal(clients['48:5A:B6:35:D9:25'].bssid, "A8:F5:AC:5F:14:F0");
   })
 });

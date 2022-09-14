@@ -5,7 +5,7 @@
 import Client from "./client";
 import { ChildProcess, spawn } from 'child_process';
 import CSV_PREFIX from './model';
-import Utils from "utils";
+import Utils from "../utils";
 
 const CAPTURED_CLIENTS = './capturedclis/capturedCLIENTS';
 
