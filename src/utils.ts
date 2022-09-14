@@ -12,6 +12,7 @@ const RELEVANT_ROW_INDICES: number[] = [0, 3, 5, 6, 7, 13];
 const RELEVANT_ROW_INDICES_CLIS: number[] = [0, 5];
 
 class Utils {
+  
   public static getRandomMac() {
     const hexDigits = '0123456789ABCDEF';
     let macAddress = '';
