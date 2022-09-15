@@ -24,6 +24,7 @@ class Controller {
 
   public getClients = async () => {
     await this.model.usedAccessPoint.stopScanning();
+    console.log(Object.keys(this.model.usedAccessPoint.clients))
     return Object.keys(this.model.usedAccessPoint.clients);
   }
 
@@ -49,7 +50,6 @@ class Controller {
   }
 
   public setAccessPointSelection = (_event: Event, accessPoint: string) => {
-    console.log(accessPoint);
     this.model.usedAccessPoint = this.model.accessPoints[accessPoint];
   }
 }

@@ -10,6 +10,7 @@ const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanning
 const accessPointSelect: HTMLSelectElement = document.getElementById('accessPointSelect') as HTMLSelectElement;
 const startScanningClisBtn: HTMLButtonElement = document.getElementById('startScanningClisBtn') as HTMLButtonElement;
 const stopScanningClisBtn: HTMLButtonElement = document.getElementById('stopScanningClisBtn') as HTMLButtonElement;
+const clientList: HTMLUListElement = document.getElementById('clientList') as HTMLUListElement;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
@@ -117,10 +118,18 @@ async function startScanningClientsHandler() {
 }
 
 async function stopScanningClientsHandler() {
-  const clients: string [] = await window.API.getClients();
-  setClientCheckBoxList(clients); 
+  const clients: string[] = await window.API.getClients();
+  setClientCheckBoxList(clients);
 }
 
-function setClientCheckBoxList(clients: string []){
+function setClientCheckBoxList(clients: string[]) {
   console.log(clients);
+  for (let i = 0; i < clients.length; i += 1) {
+    const cliLi: HTMLLIElement = document.createElement('li');
+    const cliInput: HTMLInputElement = document.createElement('input');
+    cliInput.value = clients[i];
+    cliInput.innerHTML = clients[i];
+    cliLi.appendChild(cliInput);
+    clientList.appendChild(cliLi);
+  }
 }

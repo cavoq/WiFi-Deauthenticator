@@ -4,10 +4,10 @@
 
 import Client from "./client";
 import { ChildProcess, spawn } from 'child_process';
-import CSV_PREFIX from './model';
 import Utils from "../utils";
 
 const CAPTURED_CLIENTS = './capturedclis/capturedCLIENTS';
+const CSV_PREFIX = '-01.csv';
 
 class AccessPoint {
   bssid: string;
@@ -40,7 +40,7 @@ class AccessPoint {
   public stopScanning = async () => {
     this.scanProcess.kill('SIGINT');
     Utils.deleteAccessPointsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
-    Utils.readClientsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
+    this.clients = await Utils.readClientsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
   }
 }
 

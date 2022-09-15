@@ -36,6 +36,7 @@ class Utils {
   }
 
   public static deleteAccessPointsFromCsv(csv: string) {
+    console.log(csv)
     const match = 'Station MAC';
     execSync(`sed -i '1,/${match}/d' ${csv}`);
   }
