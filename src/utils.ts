@@ -30,13 +30,19 @@ class Utils {
     });
   }
 
+  public static deleteCaptures() {
+    const projectRoot = process.cwd();
+    const capturedClients = projectRoot + "/capturedclis/captured*";
+    const capturedWAPS = projectRoot + "/capturedwaps/captured*";
+    execSync(`rm -f ${capturedClients} ${capturedWAPS}`);
+  }
+
   public static deleteClientsFromCsv(csv: string) {
     const delimiter = 'Station MAC';
     execSync(`sed -i '/${delimiter}/Q' ${csv}`);
   }
 
   public static deleteAccessPointsFromCsv(csv: string) {
-    console.log(csv)
     const match = 'Station MAC';
     execSync(`sed -i '1,/${match}/d' ${csv}`);
   }

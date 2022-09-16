@@ -50,6 +50,8 @@ class Model {
   }
 
   public scanAccessPoints = async () => {
+    this.accessPoints = [];
+    Utils.deleteCaptures();
     this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
       CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
   }

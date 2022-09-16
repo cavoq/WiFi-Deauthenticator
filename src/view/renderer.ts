@@ -10,7 +10,7 @@ const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanning
 const accessPointSelect: HTMLSelectElement = document.getElementById('accessPointSelect') as HTMLSelectElement;
 const startScanningClisBtn: HTMLButtonElement = document.getElementById('startScanningClisBtn') as HTMLButtonElement;
 const stopScanningClisBtn: HTMLButtonElement = document.getElementById('stopScanningClisBtn') as HTMLButtonElement;
-const clientList: HTMLUListElement = document.getElementById('clientList') as HTMLUListElement;
+const clientDiv: HTMLDivElement = document.getElementById('clientDiv') as HTMLDivElement;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
@@ -53,6 +53,7 @@ function getSelectedBandValues() {
 }
 
 async function setInterfaceSelect() {
+  interfaceSelect.innerHTML = "";
   const networkInterfaceControllers = await window.API.getNetworkInterfaceControllers();
   for (let i = 0; i < networkInterfaceControllers.length; i += 1) {
     const opt = document.createElement('option');
@@ -99,6 +100,7 @@ async function stopScanningHandler() {
 }
 
 function setAccessPointSelect(accessPoints: string[]) {
+  accessPointSelect.innerHTML = "";
   for (let i = 0; i < accessPoints.length; i += 1) {
     const opt = document.createElement('option');
     opt.value = accessPoints[i];
@@ -114,6 +116,10 @@ async function accessPointSelectChangeHandler() {
 }
 
 async function startScanningClientsHandler() {
+  if(!accessPointSelect.value){
+    await window.MSG.openMessageBox('No access point selected, you need to select a target.');
+    return;
+  }
   await window.API.startScanningClients();
 }
 
@@ -123,13 +129,14 @@ async function stopScanningClientsHandler() {
 }
 
 function setClientCheckBoxList(clients: string[]) {
-  console.log(clients);
+  clientDiv.innerHTML = '<input type="checkbox">Select all</input></br>';
   for (let i = 0; i < clients.length; i += 1) {
-    const cliLi: HTMLLIElement = document.createElement('li');
     const cliInput: HTMLInputElement = document.createElement('input');
+    const br: HTMLBRElement = document.createElement('br');
+    cliInput.type = "checkbox";
     cliInput.value = clients[i];
-    cliInput.innerHTML = clients[i];
-    cliLi.appendChild(cliInput);
-    clientList.appendChild(cliLi);
+    cliInput.name = clients[i];
+    clientDiv.appendChild(cliInput);
+    clientDiv.appendChild(br);
   }
 }

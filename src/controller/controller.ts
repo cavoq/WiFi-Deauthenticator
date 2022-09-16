@@ -24,7 +24,6 @@ class Controller {
 
   public getClients = async () => {
     await this.model.usedAccessPoint.stopScanning();
-    console.log(Object.keys(this.model.usedAccessPoint.clients))
     return Object.keys(this.model.usedAccessPoint.clients);
   }
 

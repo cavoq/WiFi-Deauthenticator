@@ -33,6 +33,8 @@ class AccessPoint {
   public display = () => `${this.essid}, ${this.bssid}`;
 
   public scanClients = async (networkInterface: string) => {
+    this.clients = [];
+    Utils.deleteCaptures();
     this.scanProcess = spawn('sudo', ['airodump-ng', '--bssid', this.bssid, '--channel',
       this.channel, '-w', CAPTURED_CLIENTS, '--write-interval', '1', '--output-format', 'csv', networkInterface]);
   }
