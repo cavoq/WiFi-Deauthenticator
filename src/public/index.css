@@ -11,7 +11,7 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: linear-gradient(-45deg, #010005, #121111, #171616);
+    background: linear-gradient(-45deg, #000000, #181818, #252525);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     height: 100vh;
@@ -39,12 +39,39 @@ body {
   }
 }
 
-.div-main {
+.div-main-left {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  float: left;
+}
+
+.div-main-right {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  float: right;
+}
+
+.div-right {
+  margin-bottom: 5%;
+  margin-left: 5%;
+}
+
+.div-left {
   margin-bottom: 5%;
 }
 
 .div-select {
   margin-bottom: 5%;
+}
+
+.div-header {
+  width: 100%;
+  margin-bottom: 5%;
+  text-align: center;
+  padding-bottom: 2%;
+  border-bottom: 2px solid #ff2b2b;
 }
 
 .label-main {
@@ -95,4 +122,14 @@ body {
 
 #band-legend {
   text-transform: uppercase;
+}
+
+#title {
+  text-transform: uppercase;
+  font-size: large;
+}
+
+#stop-attack-btn {
+  margin-bottom: 10%;
+  margin-right: 3%;
 }

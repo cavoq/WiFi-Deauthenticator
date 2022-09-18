@@ -3,62 +3,71 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>WiFI-Deauthenticator</title>
+  <title>WiFI-Deauthenticator v1.0.0</title>
   <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
-  <div class="div-main" id="nic-div">
-    <select class="select-main" name="Network interface controllers" id="interface-select">
-      <option value="" selected disabled hidden>Choose LAN Adapter</option>
-      <option value="test">test adapter</option>
-    </select>
-    <button id="refresh-btn" type="button">refresh</button>
+  <div class="div-header">
+    <label id="title">WiFI-Deauthenticator</label>
   </div>
-  <div class="div-main">
-    <input type="checkbox" id="random-mac-checkbox" name="Mac adress">
-    <label class="label-main" for="Use random mac adress">Use random mac adress</label>
-  </div>
-  <div class="div-main">
-    <fieldset id="band-field-set">
-      <legend id="band-legend">Choose network bands</legend>
-      <input type="checkbox" id="all-bands" name="network band" value="all">
-      <label for="all-bands">All</label>
-      <input type="checkbox" id="802.11g" name="network band" value="g">
-      <label for="802.11g">802.11g</label>
-      <input type="checkbox" id="802.11b" name="network band" value="b">
-      <label for="802.11b">802.11b</label>
-      <input type="checkbox" id="802.11a" name="network band" value="a">
-      <label for="802.11a">802.11a</label>
-    </fieldset>
-  </div>
-  <div class="div-main">
-    <button class="button-main" id="start-scanning-btn" type="button">Start scanning</button>
-    <button class="button-main" id="stop-scanning-btn" type="button">Stop scanning</button>
-  </div>
-  <div class="div-select">
-    <select class="select-main" name="access_points" id="access-point-select">
-      <option value="" selected disabled hidden>Select Accesspoint</option>
-      <option value="test">accesspoint</option>
-    </select>
-  </div>
-  <div class="div-main">
-    <button class="button-main" id="start-scanning-clis-btn" type="button">Scan clients</button>
-    <button class="button-main" id="stop-scanning-clis-btn" type="button">Stop scanning clients</button>
-  </div>
-  <div class="div-main">
-    <label class="label-main">Clients:</label></br>
-    <input type="checkbox">Select all</input></br>
-    <div class="div-main" id="client-div">
+  <div class="div-main-left">
+    <div class="div-left" id="nic-div">
+      <select class="select-main" name="Network interface controllers" id="interface-select">
+        <option value="" selected disabled hidden>Choose LAN Adapter</option>
+        <option value="test">test adapter</option>
+      </select>
+      <button class="button-main" id="refresh-btn" type="button">refresh</button>
+    </div>
+    <div class="div-left">
+      <input type="checkbox" id="random-mac-checkbox" name="Mac adress">
+      <label class="label-main" for="Use random mac adress">Use random mac adress</label>
+    </div>
+    <div class="div-left">
+      <fieldset id="band-field-set">
+        <legend id="band-legend">Choose network bands</legend>
+        <input type="checkbox" id="all-bands" name="network band" value="all">
+        <label for="all-bands">All</label>
+        <input type="checkbox" id="802.11g" name="network band" value="g">
+        <label for="802.11g">802.11g</label>
+        <input type="checkbox" id="802.11b" name="network band" value="b">
+        <label for="802.11b">802.11b</label>
+        <input type="checkbox" id="802.11a" name="network band" value="a">
+        <label for="802.11a">802.11a</label>
+      </fieldset>
+    </div>
+    <div class="div-left">
+      <button class="button-main" id="start-scanning-btn" type="button">Start scanning</button>
+      <button class="button-main" id="stop-scanning-btn" type="button">Stop scanning</button>
+    </div>
+    <div class="div-select">
+      <select class="select-main" name="access_points" id="access-point-select">
+        <option value="" selected disabled hidden>Select Accesspoint</option>
+        <option value="test">accesspoint</option>
+      </select>
+    </div>
+    <div class="div-left">
+      <button class="button-main" id="start-scanning-clis-btn" type="button">Scan clients</button>
+      <button class="button-main" id="stop-scanning-clis-btn" type="button">Stop scanning clients</button>
+    </div>
+    <div class="div-left">
+      <label class="label-main">Clients:</label></br>
+      <input type="checkbox">Select all</input></br>
+      <div class="div-main" id="client-div">
+      </div>
     </div>
   </div>
-  <div class="div-main">
-    <button class="button-main" id="start-attack-btn" type="button">Attack</button>
-    <button class="button-main" id="stop-attack-btn" type="button">Stop attack</button>
-  </div>
-  <label class="label-main">Info:</label>
-  <div>
-    Information about the attack status.
+  <div class="div-main-right">
+    <div class="div-right">
+      <button class="button-main" id="stop-attack-btn" type="button">Stop attack</button>
+      <button class="button-main" id="start-attack-btn" type="button">Attack</button>
+    </div>
+    <div class="div-right">
+      <label class="label-main">Info:</label>
+    </div>
+    <div class="div-right">
+      Information about the attack status.
+    </div>
   </div>
   <script src="../view/renderer.js"></script>
 </body>
