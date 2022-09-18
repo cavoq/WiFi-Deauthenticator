@@ -2,15 +2,15 @@
 * Renderer that handles frontend functionality.
 */
 
-const interfaceSelect: HTMLSelectElement = document.getElementById('interfaceSelect') as HTMLSelectElement;
-const randomMacCheckBox: HTMLInputElement = document.getElementById('randomMacCheckBox') as HTMLInputElement;
-const bandFieldSet: HTMLFieldSetElement = document.getElementById('bandFieldSet') as HTMLFieldSetElement;
-const startScanningBtn: HTMLButtonElement = document.getElementById('startScanningBtn') as HTMLButtonElement;
-const stopScanningBtn: HTMLButtonElement = document.getElementById('stopScanningBtn') as HTMLButtonElement;
-const accessPointSelect: HTMLSelectElement = document.getElementById('accessPointSelect') as HTMLSelectElement;
-const startScanningClisBtn: HTMLButtonElement = document.getElementById('startScanningClisBtn') as HTMLButtonElement;
-const stopScanningClisBtn: HTMLButtonElement = document.getElementById('stopScanningClisBtn') as HTMLButtonElement;
-const clientDiv: HTMLDivElement = document.getElementById('clientDiv') as HTMLDivElement;
+const interfaceSelect: HTMLSelectElement = document.getElementById('interface-select') as HTMLSelectElement;
+const randomMacCheckBox: HTMLInputElement = document.getElementById('random-mac-checkbox') as HTMLInputElement;
+const bandFieldSet: HTMLFieldSetElement = document.getElementById('band-field-set') as HTMLFieldSetElement;
+const startScanningBtn: HTMLButtonElement = document.getElementById('start-scanning-btn') as HTMLButtonElement;
+const stopScanningBtn: HTMLButtonElement = document.getElementById('stop-scanning-btn') as HTMLButtonElement;
+const accessPointSelect: HTMLSelectElement = document.getElementById('access-point-select') as HTMLSelectElement;
+const startScanningClisBtn: HTMLButtonElement = document.getElementById('start-scanning-clis-btn') as HTMLButtonElement;
+const stopScanningClisBtn: HTMLButtonElement = document.getElementById('stop-scanning-clis-btn') as HTMLButtonElement;
+const clientDiv: HTMLDivElement = document.getElementById('client-div') as HTMLDivElement;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
@@ -28,10 +28,17 @@ async function initializeBand() {
     return;
   }
   const { children } = bandFieldSet;
-  for (let i = 1; i < children.length; i += 1) {
-    const bandDiv = children[i];
-    const band = bandDiv.children[0];
-    band.addEventListener('change', bandSelectionChangeHandler);
+  for (let i = 0; i < children.length; i += 1) {
+    let band = null;
+    const el: HTMLElement = children[i] as HTMLElement;
+    if (el.tagName.toLowerCase() == 'input') {
+      band = el as HTMLInputElement;
+    }
+    if (band && band.value == 'all') {
+      if (band.value == 'all') {
+        continue;
+      }
+    }
   }
   await bandSelectionChangeHandler();
 }
@@ -116,7 +123,7 @@ async function accessPointSelectChangeHandler() {
 }
 
 async function startScanningClientsHandler() {
-  if(!accessPointSelect.value){
+  if (!accessPointSelect.value) {
     await window.MSG.openMessageBox('No access point selected, you need to select a target.');
     return;
   }
