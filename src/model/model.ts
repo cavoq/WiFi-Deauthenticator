@@ -14,20 +14,17 @@ const CSV_PREFIX = '-01.csv';
 class Model {
   networkInterfaceControllers: NetworkInterfaceController[];
   accessPoints: AccessPoint[];
-  usedNetworkInterfaceController!: NetworkInterfaceController;
   macRandomized: boolean;
   bandFlags: string[];
-  scanProcess!: ChildProcess;
+  usedNetworkInterfaceController!: NetworkInterfaceController;
   usedAccessPoint!: AccessPoint;
+  scanProcess!: ChildProcess;
 
   constructor() {
     this.networkInterfaceControllers = [];
     this.accessPoints = [];
-    this.usedNetworkInterfaceController;
-    this.usedAccessPoint;
     this.macRandomized = false;
     this.bandFlags = [];
-    this.scanProcess;
   }
 
   public scanNetworkInterfaceControllers = () => {

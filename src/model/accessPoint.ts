@@ -27,7 +27,6 @@ class AccessPoint {
     this.authentication = authentication;
     this.essid = essid;
     this.clients = [];
-    this.scanProcess;
   }
 
   public display = () => `${this.essid}, ${this.bssid}`;

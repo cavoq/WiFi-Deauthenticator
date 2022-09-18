@@ -129,14 +129,13 @@ async function stopScanningClientsHandler() {
 }
 
 function setClientCheckBoxList(clients: string[]) {
-  clientDiv.innerHTML = '<input type="checkbox">Select all</input></br>';
   for (let i = 0; i < clients.length; i += 1) {
-    const cliInput: HTMLInputElement = document.createElement('input');
+    const inp: HTMLInputElement = document.createElement('input');
     const br: HTMLBRElement = document.createElement('br');
-    cliInput.type = "checkbox";
-    cliInput.value = clients[i];
-    cliInput.name = clients[i];
-    clientDiv.appendChild(cliInput);
+    inp.type = 'checkbox';
+    inp.value = clients[i];
+    inp.innerHTML = clients[i];
+    clientDiv.appendChild(inp);
     clientDiv.appendChild(br);
   }
 }

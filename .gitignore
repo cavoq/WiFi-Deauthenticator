@@ -11,6 +11,10 @@
 
 /build
 
+# debug
+
+launch.json
+
 # Logs
 *.log
 npm-debug.log*

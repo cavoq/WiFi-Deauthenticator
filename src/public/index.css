@@ -4,13 +4,72 @@ body {
   margin: auto;
   max-width: 38rem;
   padding: 2rem;
-  background-color: darkgray;
+  background-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
-  body { background: #333; color: white; }
+  body {
+    background: rgb(29, 28, 28);
+    color: white;
+  }
 }
 
 @media (prefers-color-scheme: light) {
-  body { background: #ddd; color: black; }
+  body {
+    background: rgb(221, 221, 221);
+    color: black;
+  }
+}
+
+.div-main {
+  margin-bottom: 5%;
+
+}
+
+.label-main {
+  font-size: large;
+}
+
+button {
+ padding: 0.8em 1.8em;
+ border: 2px solid #17C3B2;
+ position: relative;
+ overflow: hidden;
+ background-color: transparent;
+ text-align: center;
+ text-transform: uppercase;
+ font-size: 16px;
+ transition: .3s;
+ z-index: 1;
+ color: #17C3B2;
+}
+
+button::before {
+ content: '';
+ width: 0;
+ height: 500%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%) rotate(45deg);
+ background: #17C3B2;
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+}
+
+button:hover::before {
+ width: 105%;
+}
+
+button:hover {
+ color: #111;
+}
+
+.select-main {
+  font-size: large;
+}
+
+#bandFieldSet {
+  font-size: large;
 }
