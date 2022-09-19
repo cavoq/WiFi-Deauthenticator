@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>WiFI-Deauthenticator v1.0.0</title>
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
   <div class="div-header">
+    <a href="https://github.com/Dav3o"><img id="github-ref" src="Octocat.png"></a>
     <label id="title">WiFI-Deauthenticator</label>
   </div>
   <div class="div-main-left">
@@ -51,22 +52,27 @@
       <button class="button-main" id="stop-scanning-clis-btn" type="button">Stop scanning clients</button>
     </div>
     <div class="div-left">
-      <label class="label-main">Clients:</label></br>
-      <input type="checkbox">Select all</input></br>
-      <div class="div-main" id="client-div">
+      <label id="client-label" class="label-main">Clients:</label></br>
+      <input id="select-all-checkbox" type="checkbox">Select all</input></br>
+      <div class="div-left" id="client-div">
       </div>
     </div>
   </div>
   <div class="div-main-right">
     <div class="div-right">
       <button class="button-main" id="stop-attack-btn" type="button">Stop attack</button>
-      <button class="button-main" id="start-attack-btn" type="button">Attack</button>
+      <button class="button-main" id="start-attack-btn" type="button">Start attack</button>
     </div>
     <div class="div-right">
-      <label class="label-main">Info:</label>
+      <label id="info-label">Info:</label>
     </div>
-    <div class="div-right">
-      Information about the attack status.
+    <div id="terminal-wrapper">
+      <div id="terminal-container">
+        <p>Hello world</p>
+        <p>Hello world</p>
+        <p>Hello world</p>
+        <p>Hello world</p>
+      </div>
     </div>
   </div>
   <script src="../view/renderer.js"></script>

@@ -52,7 +52,7 @@ class Main {
           contextIsolation: true,
         },
         darkTheme: true,
-        icon: 'public/wlan-signal.png',
+        icon: process.cwd() + '/src/public/wlan-signal.png',
       })
     this.mainWindow.loadFile('public/main.html');
     this.mainWindow.on('closed', () => {
