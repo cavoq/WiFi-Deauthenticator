@@ -49,6 +49,13 @@ body {
   float: left;
   width: 3%;
   height: 3%;
+  margin-right: 1%;
+}
+
+#discord-ref {
+  float: left;
+  width: 3%;
+  height: 3%;
 }
 
 #title {

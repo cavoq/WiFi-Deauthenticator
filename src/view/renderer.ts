@@ -3,8 +3,8 @@
 */
 
 const interfaceSelect: HTMLSelectElement = document.getElementById('interface-select') as HTMLSelectElement;
+const refreshBtn: HTMLButtonElement = document.getElementById('refresh-btn') as HTMLButtonElement;
 const randomMacCheckBox: HTMLInputElement = document.getElementById('random-mac-checkbox') as HTMLInputElement;
-const bandFieldSet: HTMLFieldSetElement = document.getElementById('band-field-set') as HTMLFieldSetElement;
 const startScanningBtn: HTMLButtonElement = document.getElementById('start-scanning-btn') as HTMLButtonElement;
 const stopScanningBtn: HTMLButtonElement = document.getElementById('stop-scanning-btn') as HTMLButtonElement;
 const accessPointSelect: HTMLSelectElement = document.getElementById('access-point-select') as HTMLSelectElement;
@@ -17,6 +17,7 @@ async function initializeUi() {
   await setInterfaceSelect();
   await initializeBand();
   randomMacCheckBox.addEventListener('change', randomMacChangeHandler);
+  refreshBtn.addEventListener('click', setInterfaceSelect);
   startScanningBtn.addEventListener('click', startScanningHandler);
   stopScanningBtn.addEventListener('click', stopScanningHandler);
   startScanningClisBtn.addEventListener('click', startScanningClientsHandler);
@@ -24,39 +25,23 @@ async function initializeUi() {
 }
 
 async function initializeBand() {
-  if (!bandFieldSet) {
-    return;
-  }
-  const { children } = bandFieldSet;
-  for (let i = 0; i < children.length; i += 1) {
-    let band = null;
-    const el: HTMLElement = children[i] as HTMLElement;
-    if (el.tagName.toLowerCase() == 'input') {
-      band = el as HTMLInputElement;
-    }
-    if (band && band.value == 'all') {
-      if (band.value == 'all') {
-        continue;
-      }
-    }
-  }
-  await bandSelectionChangeHandler();
+  const bands = $('band-field-set').children('input[name="network-band"]');
+  console.log(bands);
+  bands.on('change', bandSelectionChangeHandler);
 }
 
+
 function getSelectedBandValues() {
-  const bandArray: string[] = [];
-  if (!bandFieldSet) {
-    return;
-  }
-  const { children } = bandFieldSet;
-  for (let i = 1; i < children.length; i += 1) {
-    const bandDiv: HTMLDivElement = children[i] as HTMLDivElement;
-    const band: HTMLInputElement = bandDiv.children[0] as HTMLInputElement;
-    if (band.checked) {
-      bandArray.push(band.defaultValue);
+  const bandValues: string[] = [];
+  const bands: JQuery<HTMLInputElement> = $('band-field-set').
+    children('input[name="network-band"]') as JQuery<HTMLInputElement>;
+  bands.each(function () {
+    if (this.checked) {
+      bandValues.push(this.value);
     }
-  }
-  return bandArray;
+  });
+  console.log(bandValues);
+  return bandValues;
 }
 
 async function setInterfaceSelect() {
@@ -69,7 +54,6 @@ async function setInterfaceSelect() {
     interfaceSelect.appendChild(opt);
   }
   interfaceSelect.addEventListener('change', interfaceSelectChangeHandler);
-  interfaceSelectChangeHandler();
 }
 
 async function randomMacChangeHandler() {
@@ -115,7 +99,6 @@ function setAccessPointSelect(accessPoints: string[]) {
     accessPointSelect.appendChild(opt);
   }
   accessPointSelect.addEventListener('change', accessPointSelectChangeHandler);
-  accessPointSelectChangeHandler();
 }
 
 async function accessPointSelectChangeHandler() {

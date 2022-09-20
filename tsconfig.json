@@ -8,6 +8,7 @@
         "outDir": "./build",
         "baseUrl": "./src",
         "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
         "suppressImplicitAnyIndexErrors": true,
         "typeRoots": [
             "./node_modules/@types",

@@ -9,7 +9,8 @@
 
 <body>
   <div class="div-header">
-    <a href="https://github.com/Dav3o"><img id="github-ref" src="Octocat.png"></a>
+    <a href="https://github.com/Dav3o"><img id="github-ref" src="octocat.png"></a>
+    <a href="https://discord.gg/m89rtf4YMQ"><img id="github-ref" src="discord.png"></a>
     <label id="title">WiFI-Deauthenticator</label>
   </div>
   <div class="div-main-left">
@@ -27,13 +28,13 @@
     <div class="div-left">
       <fieldset id="band-field-set">
         <legend id="band-legend">Choose network bands</legend>
-        <input type="checkbox" id="all-bands" name="network band" value="all">
+        <input type="checkbox" id="all-bands" value="all">
         <label for="all-bands">All</label>
-        <input type="checkbox" id="802.11g" name="network band" value="g">
+        <input type="checkbox" id="802.11g" name="network-band" value="g">
         <label for="802.11g">802.11g</label>
-        <input type="checkbox" id="802.11b" name="network band" value="b">
+        <input type="checkbox" id="802.11b" name="network-band" value="b">
         <label for="802.11b">802.11b</label>
-        <input type="checkbox" id="802.11a" name="network band" value="a">
+        <input type="checkbox" id="802.11a" name="network-band" value="a">
         <label for="802.11a">802.11a</label>
       </fieldset>
     </div>
@@ -75,6 +76,7 @@
       </div>
     </div>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../view/renderer.js"></script>
 </body>
 

@@ -61,6 +61,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
     "@electron-forge/maker-zip": "^6.0.0-beta.65",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@types/jquery": "^3.5.14",
     "@types/mocha": "^9.1.1",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
