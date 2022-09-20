@@ -213,6 +213,10 @@ body {
   overflow-y: auto;
 }
 
+#client-div input {
+  color: #ffffff !important;
+}
+
 #select-all-checkbox {
   margin-top: 2%;
 }
