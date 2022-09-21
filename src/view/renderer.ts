@@ -47,11 +47,7 @@ function initializeBand() {
   const all: JQuery<HTMLInputElement> = $('#band-field-set').
     children('#all-bands') as JQuery<HTMLInputElement>;
   all.on('change', function () {
-    if (this.checked) {
-      bands.prop('checked', true);
-    } else {
-      bands.prop('checked', false);
-    }
+    bands.prop('checked', this.checked);
     bandSelectionChangeHandler();
   });
 }
@@ -70,6 +66,14 @@ function getSelectedBandValues() {
 
 async function bandSelectionChangeHandler() {
   const bandValues = getSelectedBandValues();
+  const all: JQuery<HTMLInputElement> = $('#band-field-set').
+    children('#all-bands') as JQuery<HTMLInputElement>;
+  if (bandValues.length === 3) {
+    all.prop('checked', true);
+  } else {
+    all.prop('checked', false);
+  }
+  console.log(bandValues);
   await window.API.setBandSelection(bandValues);
 }
 
@@ -126,9 +130,41 @@ function setClientCheckBoxList(clients: string[]) {
     clientDiv.append($('<input>', {
       type: 'checkbox',
       value: clients[i],
+      name: 'client'
     })).append($('<label>', {
       for: clients[i],
       text: clients[i],
     })).append($('<br>'));
   }
+  const clientInpts: JQuery<HTMLInputElement> = clientDiv.
+    children('input[name="client"]') as JQuery<HTMLInputElement>;
+  clientInpts.on('change', clientSelectionChangeHandler);
+  const all: JQuery<HTMLInputElement> = $('#select-all-checkbox') as JQuery<HTMLInputElement>;
+  all.on('change', function () {
+    clientInpts.prop('checked', this.checked);
+    clientSelectionChangeHandler();
+  });
+}
+
+function getSelectedClientValues() {
+  const clientValues: string[] = [];
+  const clients: JQuery<HTMLInputElement> = clientDiv.
+    children('input[name="client"]') as JQuery<HTMLInputElement>;
+  clients.each(function () {
+    if (this.checked) {
+      clientValues.push(this.value);
+    }
+  });
+  return clientValues;
+}
+
+async function clientSelectionChangeHandler() {
+  const clientValues = getSelectedClientValues();
+  const all: JQuery<HTMLInputElement> = $('#select-all-checkbox') as JQuery<HTMLInputElement>;
+  if (clientValues.length === clientDiv.children('input[name="client"]').length) {
+    all.prop('checked', true);
+  } else {
+    all.prop('checked', false);
+  }
+  await window.API.setTargetSelection(clientValues);
 }

@@ -17,6 +17,7 @@ class AccessPoint {
   authentication: string;
   essid: string;
   clients: Client[];
+  targets: string[];
   scanProcess!: ChildProcess
 
   constructor(bssid: string, channel: string, privacy: string, cipher: string, authentication: string, essid: string) {
@@ -27,6 +28,7 @@ class AccessPoint {
     this.authentication = authentication;
     this.essid = essid;
     this.clients = [];
+    this.targets = [];
   }
 
   public display = () => `${this.essid}, ${this.bssid}`;
@@ -42,6 +44,10 @@ class AccessPoint {
     this.scanProcess.kill('SIGINT');
     Utils.deleteAccessPointsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
     this.clients = await Utils.readClientsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
+  }
+
+  public setTargetSelection = (targets: string[]) => {
+    this.targets = targets;
   }
 }
 

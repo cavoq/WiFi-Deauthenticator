@@ -39,6 +39,7 @@ class Main {
     ipcMain.handle('openMessageBox', this.openMessageBox);
     ipcMain.handle('startScanningClients', this.controller.model.scanClients);
     ipcMain.handle('getClients', this.controller.getClients);
+    ipcMain.handle('setTargetSelection', this.controller.setTargetSelection)
   }
 
   createWindow = () => {
@@ -61,7 +62,7 @@ class Main {
     });
   }
 
-  initialize = () =>{
+  initialize = () => {
     this.application.whenReady().then(() => {
       this.createWindow();
       this.addHandlers();

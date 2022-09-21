@@ -51,6 +51,10 @@ class Controller {
   public setAccessPointSelection = (_event: Event, accessPoint: string) => {
     this.model.usedAccessPoint = this.model.accessPoints[accessPoint];
   }
+
+  public setTargetSelection = (_event: Event, targets: string[]) => {
+    this.model.usedAccessPoint.setTargetSelection(targets);
+  }
 }
 
 export default Controller;
