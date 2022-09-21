@@ -7,6 +7,7 @@ import { NetworkInterfaceInfo } from 'os';
 import { errorlog } from '../logger';
 import { successlog } from '../logger';
 
+const MONITOR_MODE = "mon";
 class NetworkInterfaceController {
   name: string;
   address: string;
@@ -26,8 +27,9 @@ class NetworkInterfaceController {
 
   public setMonitorMode = () => {
     try {
-      execSync('airmon-ng check kill');
-      execSync(`airmon-ng start ${this.name}`);
+      execSync('sudo airmon-ng check kill');
+      execSync(`sudo airmon-ng start ${this.name}`);
+      this.name.concat(MONITOR_MODE);
       successlog.info(`${this.name} is now in monitor mode`);
     } catch (err) {
       errorlog.error(`Could not set ${this.name} into monitor mode: ${err}`);
@@ -36,8 +38,9 @@ class NetworkInterfaceController {
 
   public setManagedMode = () => {
     try {
-      execSync(`airmon-ng stop ${this.name}`);
-      execSync('service NetworkManager restart');
+      execSync(`sudo airmon-ng stop ${this.name}`);
+      execSync('sudo service NetworkManager restart');
+      this.name.replace(MONITOR_MODE, '');
       successlog.info(`${this.name} is now in managed mode`);
     } catch (err) {
       errorlog.error(`Could not set ${this.name} into managed mode: ${err}`);

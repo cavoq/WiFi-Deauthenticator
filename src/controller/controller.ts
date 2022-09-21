@@ -28,7 +28,11 @@ class Controller {
   }
 
   public setInterfaceSelection = (_event: Event, iface: string) => {
+    if (this.model.usedNetworkInterfaceController) {
+      this.model.usedNetworkInterfaceController.setManagedMode();
+    }
     this.model.usedNetworkInterfaceController = this.model.networkInterfaceControllers[iface];
+    this.model.usedNetworkInterfaceController.setMonitorMode();
   }
 
   public setInterfaceMac = (_event: Event, randomized: boolean) => {

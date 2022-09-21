@@ -19,13 +19,14 @@ class Model {
   usedNetworkInterfaceController!: NetworkInterfaceController;
   usedAccessPoint!: AccessPoint;
   scanProcess!: ChildProcess;
-  deauthenticationProcesses!: ChildProcess[];
+  deauthenticationProcesses: ChildProcess[];
 
   constructor() {
     this.networkInterfaceControllers = [];
     this.accessPoints = [];
     this.macRandomized = false;
     this.bandFlags = [];
+    this.deauthenticationProcesses = [];
   }
 
   public scanNetworkInterfaceControllers = () => {
@@ -61,6 +62,9 @@ class Model {
   }
 
   public reset = () => {
+    if (this.usedNetworkInterfaceController) {
+      this.usedNetworkInterfaceController.setManagedMode();
+    }
     for (let i = 0; i < this.networkInterfaceControllers.length; i += 1) {
       this.networkInterfaceControllers[i].resetMac();
     }
@@ -83,14 +87,16 @@ class Model {
   }
 
   public deauthenticate = async () => {
-    this.stopDeauthentication();
+    if (this.deauthenticationProcesses.length != 0) {
+      await this.stopDeauthentication();
+    }
     if (this.usedAccessPoint.targets.length === this.usedAccessPoint.clients.length) {
-      this.deauthenticateAllClients();
+      await this.deauthenticateAllClients();
       return;
     }
     const targets = this.usedAccessPoint.targets;
     for (let i = 0; i < targets.length; i += 1) {
-      this.deauthenticateClient(targets[i]);
+      await this.deauthenticateClient(targets[i]);
     }
   }
 
