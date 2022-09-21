@@ -39,7 +39,9 @@ class Main {
     ipcMain.handle('openMessageBox', this.openMessageBox);
     ipcMain.handle('startScanningClients', this.controller.model.scanClients);
     ipcMain.handle('getClients', this.controller.getClients);
-    ipcMain.handle('setTargetSelection', this.controller.setTargetSelection)
+    ipcMain.handle('setTargetSelection', this.controller.setTargetSelection);
+    ipcMain.handle('startAttack', this.controller.model.deauthenticate);
+    ipcMain.handle('stopAttack', this.controller.model.stopDeauthentication)
   }
 
   createWindow = () => {

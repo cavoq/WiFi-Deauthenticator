@@ -10,6 +10,8 @@ const stopScanningBtn: JQuery<HTMLButtonElement> = $('#stop-scanning-btn') as JQ
 const accessPointSelect: JQuery<HTMLSelectElement> = $('#access-point-select') as JQuery<HTMLSelectElement>;
 const startScanningClisBtn: JQuery<HTMLButtonElement> = $('#start-scanning-clis-btn') as JQuery<HTMLButtonElement>;
 const stopScanningClisBtn: JQuery<HTMLButtonElement> = $('#stop-scanning-clis-btn') as JQuery<HTMLButtonElement>;
+const startAttackBtn: JQuery<HTMLButtonElement> = $('#start-attack-btn') as JQuery<HTMLButtonElement>;
+const stopAttackBtn: JQuery<HTMLButtonElement> = $('#stop-attack-btn') as JQuery<HTMLButtonElement>;
 const clientDiv: JQuery<HTMLDivElement> = $('#client-div') as JQuery<HTMLDivElement>;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
@@ -24,6 +26,8 @@ async function initializeUi() {
   stopScanningBtn.on('click', stopScanningHandler);
   startScanningClisBtn.on('click', startScanningClientsHandler);
   stopScanningClisBtn.on('click', stopScanningClientsHandler);
+  startAttackBtn.on('click', startAttackHandler);
+  stopAttackBtn.on('click', stopAttackHandler);
 }
 
 async function setInterfaceSelect() {
@@ -73,7 +77,6 @@ async function bandSelectionChangeHandler() {
   } else {
     all.prop('checked', false);
   }
-  console.log(bandValues);
   await window.API.setBandSelection(bandValues);
 }
 
@@ -167,4 +170,17 @@ async function clientSelectionChangeHandler() {
     all.prop('checked', false);
   }
   await window.API.setTargetSelection(clientValues);
+}
+
+async function startAttackHandler() {
+  const clientValues = getSelectedClientValues();
+  if (clientValues.length === 0) {
+    await window.MSG.openMessageBox('No clients selected, you need to select a targets.');
+    return;
+  }
+  await window.API.startAttack();
+}
+
+async function stopAttackHandler() {
+  await window.API.stopAttack();
 }

