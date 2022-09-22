@@ -7,6 +7,7 @@ import { ChildProcess, spawn } from 'child_process';
 import NetworkInterfaceController from './networkInterfaceController';
 import Utils from '../utils';
 import AccessPoint from './accessPoint';
+import StreamHandler from '../terminalStream';
 
 const CAPTURED_WAPS = './capturedwaps/capturedWAPS';
 const CSV_PREFIX = '-01.csv';
@@ -51,12 +52,14 @@ class Model {
   public scanAccessPoints = async () => {
     this.accessPoints = [];
     Utils.deleteCaptures();
-    this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
+    this.scanProcess = spawn('airodump-ng', ['--band', this.bandFlags.join(''), '-w',
       CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
+    StreamHandler.process(this.scanProcess);
   }
 
   public stopScanningAccessPoints = async () => {
     this.scanProcess.kill('SIGINT');
+    console.log(this.scanProcess)
     Utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
     this.accessPoints = await Utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
   }

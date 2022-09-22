@@ -191,6 +191,8 @@ body {
   background-color: #000000;
   padding: 3em;
   border: 2px solid #ff2b2b;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 #terminal-container {

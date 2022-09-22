@@ -4,8 +4,10 @@
 
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
+import StreamHandler from './terminalStream';
 import Controller from './controller/controller';
 import Model from './model/model';
+import { execSync } from 'child_process';
 
 class Main {
   controller: Controller;
@@ -62,6 +64,7 @@ class Main {
       this.controller.model.reset();
       this.application.quit();
     });
+    StreamHandler.initialize(this.mainWindow);
   }
 
   initialize = () => {
@@ -86,3 +89,4 @@ const model: Model = new Model();
 const controller: Controller = new Controller(model);
 const main: Main = new Main(app, controller);
 main.initialize();
+execSync('sudo -s');

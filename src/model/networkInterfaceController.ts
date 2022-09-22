@@ -29,7 +29,8 @@ class NetworkInterfaceController {
     try {
       execSync('sudo airmon-ng check kill');
       execSync(`sudo airmon-ng start ${this.name}`);
-      this.name.concat(MONITOR_MODE);
+      this.name = this.name.concat(MONITOR_MODE);
+      console.log(this.name);
       successlog.info(`${this.name} is now in monitor mode`);
     } catch (err) {
       errorlog.error(`Could not set ${this.name} into monitor mode: ${err}`);
@@ -40,7 +41,7 @@ class NetworkInterfaceController {
     try {
       execSync(`sudo airmon-ng stop ${this.name}`);
       execSync('sudo service NetworkManager restart');
-      this.name.replace(MONITOR_MODE, '');
+      this.name = this.name.replace(MONITOR_MODE, '');
       successlog.info(`${this.name} is now in managed mode`);
     } catch (err) {
       errorlog.error(`Could not set ${this.name} into managed mode: ${err}`);

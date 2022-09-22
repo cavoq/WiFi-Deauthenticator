@@ -13,6 +13,7 @@ const stopScanningClisBtn: JQuery<HTMLButtonElement> = $('#stop-scanning-clis-bt
 const startAttackBtn: JQuery<HTMLButtonElement> = $('#start-attack-btn') as JQuery<HTMLButtonElement>;
 const stopAttackBtn: JQuery<HTMLButtonElement> = $('#stop-attack-btn') as JQuery<HTMLButtonElement>;
 const clientDiv: JQuery<HTMLDivElement> = $('#client-div') as JQuery<HTMLDivElement>;
+const terminalContainer: JQuery<HTMLDivElement> = $('#terminal-container') as JQuery<HTMLDivElement>;
 document.addEventListener('DOMContentLoaded', initializeUi);
 
 async function initializeUi() {
@@ -184,3 +185,8 @@ async function startAttackHandler() {
 async function stopAttackHandler() {
   await window.API.stopAttack();
 }
+
+window.API.handleTerminalStream((_event: Event, data: Buffer) => {
+  terminalContainer.html('');
+  terminalContainer.append(data.toString('utf-8'));
+})  
