@@ -199,6 +199,7 @@ body {
   color: #ffffff;
   font-size: small;
   font-family: monospace;
+  width: fit-content;
 }
 
 #client-label {

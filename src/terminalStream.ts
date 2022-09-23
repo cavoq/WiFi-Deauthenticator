@@ -11,11 +11,11 @@ class StreamHandler {
 
     public static process(process: ChildProcess) {
         process.stdout?.on('data', (data: Buffer) => {
-            StreamHandler.send(data);
+            StreamHandler.send(data.toString('utf-8'));
         });
     }
 
-    public static send(data: Buffer) {
+    public static send(data: string) {
         StreamHandler.mainWindow.webContents.send('terminal-stream', data);
     }
 }

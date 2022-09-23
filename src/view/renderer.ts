@@ -186,7 +186,7 @@ async function stopAttackHandler() {
   await window.API.stopAttack();
 }
 
-window.API.handleTerminalStream((_event: Event, data: Buffer) => {
+window.API.handleTerminalStream((_event: Event, data: string) => {
   terminalContainer.html('');
-  terminalContainer.append(data.toString('utf-8'));
+  terminalContainer.append(data);
 })  

@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "build/main.js",
   "scripts": {
-    "start": "sudo npm run compile && sudo electron build/main.js",
+    "start": "npm run compile && electron build/main.js",
     "compile": "tsc && copyfiles -f src/public/* build/public/",
     "test": "mocha -r ts-node/register test/*",
     "test:coverage": "nyc npm run test",
@@ -91,5 +91,27 @@
       "text-summary"
     ],
     "report-dir": "coverage"
+  },
+  "forge": {
+    "make_targets": {
+      "linux": [
+        "deb",
+        "rpm"
+      ]
+    },
+    "electronPackagerConfig": {
+      "packageManager": "npm",
+      "ignore": [
+        ".idea",
+        "coverage"
+      ]
+    },
+    "electronWinstallerConfig": {
+      "name": "WiFi-Deauthenticator"
+    },
+    "github_repository": {
+      "owner": "Dav3o",
+      "name": "https://github.com/Dav3o/WiFi-Deauthenticator.git"
+    }
   }
 }

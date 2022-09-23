@@ -7,10 +7,9 @@ import path from 'path';
 import StreamHandler from './terminalStream';
 import Controller from './controller/controller';
 import Model from './model/model';
-import { execSync } from 'child_process';
 
 class Main {
-  controller: Controller;
+  controller!: Controller;
   mainWindow: BrowserWindow | undefined;
   application: Electron.App;
 
@@ -87,6 +86,6 @@ class Main {
 
 const model: Model = new Model();
 const controller: Controller = new Controller(model);
-const main: Main = new Main(app, controller);
+const main = new Main(app, controller);
 main.initialize();
-execSync('sudo -s');
+
