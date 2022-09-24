@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "build/main.js",
   "scripts": {
-    "start": "npm run compile && electron build/main.js",
+    "start": "sudo npm run compile && electron build/main.js",
     "compile": "tsc && copyfiles -f src/public/* build/public/",
     "test": "mocha -r ts-node/register test/*",
     "test:coverage": "nyc npm run test",
@@ -20,32 +20,25 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "packageManager": "npm",
+        "ignore": [
+          ".idea",
+          "coverage"
+        ],
+        "icon": "src/public/wlan-signal.png"
+      },
       "makers": [
         {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "wifi_deauthenticator"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
           "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
           "config": {}
         }
       ]
     }
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "babel-register": "^6.26.0",
     "csv-parse": "^5.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "macaddress": "^0.5.3",
@@ -63,6 +56,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/jquery": "^3.5.14",
     "@types/mocha": "^9.1.1",
+    "@types/node": "^18.7.19",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "electron": "^20.2.0",
@@ -91,27 +85,5 @@
       "text-summary"
     ],
     "report-dir": "coverage"
-  },
-  "forge": {
-    "make_targets": {
-      "linux": [
-        "deb",
-        "rpm"
-      ]
-    },
-    "electronPackagerConfig": {
-      "packageManager": "npm",
-      "ignore": [
-        ".idea",
-        "coverage"
-      ]
-    },
-    "electronWinstallerConfig": {
-      "name": "WiFi-Deauthenticator"
-    },
-    "github_repository": {
-      "owner": "Dav3o",
-      "name": "https://github.com/Dav3o/WiFi-Deauthenticator.git"
-    }
   }
 }

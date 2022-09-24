@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>WiFI-Deauthenticator v1.0.0</title>
+    <link rel="stylesheet" href="auth.css" />
+</head>
+
+<body>
+    <div id="password-form-div">
+        <h1>Authorize</h1>
+        <p>This application needs elevated priviliges,
+            please provide the root password.</p>
+        <form onsubmit="return validatePassword()" method="post" id="passwordForm">
+            <label for="password">Password:</label><br>
+            <div id="submit-content">
+            <input type="password" id="password-input" name="password" value=""><br>
+            <button id="submit-btn" type="submit" form="passwordForm" value="Submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

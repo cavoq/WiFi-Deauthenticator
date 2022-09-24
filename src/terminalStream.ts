@@ -1,17 +1,22 @@
 import { BrowserWindow } from "electron";
 import { ChildProcess } from 'child_process';
+import fs from 'fs';
 
 
 class StreamHandler {
     public static mainWindow: BrowserWindow;
+    public static outputFile = fs.openSync('output.log', 'a');
 
     public static initialize(window: BrowserWindow) {
         StreamHandler.mainWindow = window;
     }
 
     public static process(process: ChildProcess) {
-        process.stdout?.on('data', (data: Buffer) => {
-            StreamHandler.send(data.toString('utf-8'));
+        process.stdout?.on('data', () => {
+            StreamHandler.send(this.outputFile.toString());
+        });
+        process.on('exit', () => {
+            console.log("Exited");
         });
     }
 

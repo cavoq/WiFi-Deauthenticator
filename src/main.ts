@@ -20,7 +20,7 @@ class Main {
 
   openMessageBox = (_event: Event, message: string) => {
     const options = {
-      title: 'Unable to start scanning',
+      title: 'Notice',
       message,
     };
     if (!this.mainWindow) {
