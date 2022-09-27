@@ -17,6 +17,8 @@ contextBridge.exposeInMainWorld('API', {
   setTargetSelection: (targets: string[]) => ipcRenderer.invoke('setTargetSelection', targets),
   startAttack: () => ipcRenderer.invoke('startAttack'),
   stopAttack: () => ipcRenderer.invoke('stopAttack'),
+  validatePassword: (password: string) => ipcRenderer.invoke('validatePassword', password),
+  grantAccess: (password: string) => ipcRenderer.invoke('grantAccess', password),
   handleTerminalStream: (callback: EventListener) => ipcRenderer.on('terminal-stream', callback),
 });
 

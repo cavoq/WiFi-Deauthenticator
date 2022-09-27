@@ -12,14 +12,16 @@
         <h1>Authorize</h1>
         <p>This application needs elevated priviliges,
             please provide the root password.</p>
-        <form onsubmit="return validatePassword()" method="post" id="passwordForm">
+        <form id="password-form">
             <label for="password">Password:</label><br>
             <div id="submit-content">
-            <input type="password" id="password-input" name="password" value=""><br>
-            <button id="submit-btn" type="submit" form="passwordForm" value="Submit">Submit</button>
+                <input type="password" id="password-input" name="password" value=""><br>
+                <button id="submit-btn" type="submit" form="password-form" value="Submit">Submit</button>
             </div>
         </form>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../view/validate.js"></script>
 </body>
 
 </html>

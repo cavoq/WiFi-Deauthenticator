@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "build/main.js",
   "scripts": {
-    "start": "sudo npm run compile && electron build/main.js",
+    "start": "npm run compile && electron build/main.js",
     "compile": "tsc && copyfiles -f src/public/* build/public/",
     "test": "mocha -r ts-node/register test/*",
     "test:coverage": "nyc npm run test",

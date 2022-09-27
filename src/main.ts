@@ -7,6 +7,8 @@ import path from 'path';
 import StreamHandler from './terminalStream';
 import Controller from './controller/controller';
 import Model from './model/model';
+import PasswordManager from './passwordManager';
+import { execSync } from 'child_process';
 
 class Main {
   controller!: Controller;
@@ -42,7 +44,9 @@ class Main {
     ipcMain.handle('getClients', this.controller.getClients);
     ipcMain.handle('setTargetSelection', this.controller.setTargetSelection);
     ipcMain.handle('startAttack', this.controller.model.deauthenticate);
-    ipcMain.handle('stopAttack', this.controller.model.stopDeauthentication)
+    ipcMain.handle('stopAttack', this.controller.model.stopDeauthentication);
+    ipcMain.handle('validatePassword', this.validate);
+    ipcMain.handle('grantAccess', this.grantAccess);
   }
 
   createWindow = () => {
@@ -58,7 +62,7 @@ class Main {
         darkTheme: true,
         icon: process.cwd() + '/src/public/wlan-signal.png',
       })
-    this.mainWindow.loadFile('public/main.html');
+    this.mainWindow.loadFile('public/auth.html');
     this.mainWindow.on('closed', () => {
       this.controller.model.reset();
       this.application.quit();
@@ -81,6 +85,24 @@ class Main {
         this.application.quit();
       }
     });
+  }
+
+  validate = (_event: Event, password: string) => {
+    try {
+      execSync(`echo '${password}' | sudo -S ls`);
+      return true;
+    }
+    catch (err) {
+      console.log(err)
+      return false;
+    }
+  }
+
+  grantAccess = (_event: Event, password: string) => {
+    PasswordManager.safe(password);
+    if (this.mainWindow) {
+      this.mainWindow.loadFile('public/main.html');
+    }
   }
 }
 
