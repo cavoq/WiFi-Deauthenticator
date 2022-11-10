@@ -198,6 +198,8 @@ body {
 #terminal-container {
   color: #ffffff;
   font-size: small;
+  overflow-x: auto;
+  overflow-y: auto;
   font-family: monospace;
   width: fit-content;
 }

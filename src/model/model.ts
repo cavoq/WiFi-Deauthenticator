@@ -53,9 +53,8 @@ class Model {
     this.accessPoints = [];
     Utils.deleteCaptures();
     this.scanProcess = spawn('sudo', ['airodump-ng', '--band', this.bandFlags.join(''), '-w',
-      CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name],
-      { stdio: ['pipe', StreamHandler.outputFile, StreamHandler.outputFile] });
-    StreamHandler.process(this.scanProcess);
+      CAPTURED_WAPS, '--write-interval', '1', '--output-format', 'csv', this.usedNetworkInterfaceController.name]);
+    await StreamHandler.process(this.scanProcess, CAPTURED_WAPS + CSV_PREFIX);
   }
 
   public stopScanningAccessPoints = async () => {

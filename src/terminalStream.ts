@@ -2,21 +2,20 @@ import { BrowserWindow } from "electron";
 import { ChildProcess } from 'child_process';
 import fs from 'fs';
 
-
 class StreamHandler {
     public static mainWindow: BrowserWindow;
-    public static outputFile = fs.openSync('output.log', 'a');
 
     public static initialize(window: BrowserWindow) {
         StreamHandler.mainWindow = window;
     }
 
-    public static process(process: ChildProcess) {
+    public static async process(process: ChildProcess, filePath: string) {
         process.stdout?.on('data', () => {
-            StreamHandler.send(this.outputFile.toString());
-        });
-        process.on('exit', () => {
-            console.log("Exited");
+            if (!fs.existsSync(filePath)) {
+                return;
+            }
+            const content = fs.readFileSync(filePath, "utf-8");
+            StreamHandler.send(content);
         });
     }
 
