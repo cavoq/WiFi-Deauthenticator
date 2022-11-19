@@ -6,7 +6,7 @@
   "main": "build/main.js",
   "scripts": {
     "start": "npm run compile && electron build/main.js",
-    "compile": "tsc && copyfiles -f src/public/* build/public/",
+    "compile": "tsc && copyfiles -f /public/* build/public/",
     "test": "mocha -r ts-node/register test/*",
     "test:coverage": "nyc npm run test",
     "package": "electron-forge package",
@@ -26,12 +26,11 @@
           ".idea",
           "coverage"
         ],
-        "icon": "src/public/wlan-signal.png"
+        "icon": "/public/wlan-signal.png"
       },
       "makers": [
         {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
+          "name": "@electron-forge/maker-deb"
         }
       ]
     }
@@ -76,7 +75,7 @@
       "test/*"
     ],
     "exclude": [
-      "src/_tests_/**/*.*"
+      "/_tests_/**/*.*"
     ],
     "reporter": [
       "html",

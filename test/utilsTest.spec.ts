@@ -6,7 +6,7 @@
 
 import assert from 'assert';
 import { execSync } from 'child_process';
-import Utils from '../src/utils';
+import Utils from '../utils';
 
 const CAPTURED_WAPS_TEST = `${__dirname}/input/sampleAccessPoints.csv`;
 const CAPTURED_WAPS_TMP = `${__dirname}/tmp/sampleAccessPoints.csv`;
