@@ -1,5 +1,5 @@
 # WiFi-Deauthenticator
-WiFi deauthentication tool for penetration testing purposes
+WiFi deauthentication tool for penetration testing purposes.
 
 # Preview
 
