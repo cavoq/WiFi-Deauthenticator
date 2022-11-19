@@ -11,6 +11,10 @@
 
 /build
 
+# Key file
+
+access.key
+
 # debug
 
 launch.json
