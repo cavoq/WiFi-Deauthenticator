@@ -6,7 +6,7 @@
   "main": "build/main.js",
   "scripts": {
     "start": "npm run compile && electron build/main.js",
-    "compile": "tsc && copyfiles -f /public/* build/public/",
+    "compile": "tsc && copyfiles -f src/public/* build/public/",
     "test": "mocha -r ts-node/register test/*",
     "test:coverage": "nyc npm run test",
     "package": "electron-forge package",
@@ -25,8 +25,7 @@
         "ignore": [
           ".idea",
           "coverage"
-        ],
-        "icon": "/public/wlan-signal.png"
+        ]
       },
       "makers": [
         {
@@ -59,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "electron": "^20.2.0",
+    "electron-packager": "^17.1.1",
     "eslint": "^8.23.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",

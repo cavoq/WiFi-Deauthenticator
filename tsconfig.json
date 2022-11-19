@@ -6,22 +6,22 @@
         "esModuleInterop": true,
         "sourceMap": true,
         "outDir": "./build",
-        "baseUrl": "./",
+        "baseUrl": "./src",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "suppressImplicitAnyIndexErrors": true,
         "typeRoots": [
             "./node_modules/@types",
-            "./types/"
+            "./src/types/"
         ],
     },
     "include": [
-        "*",
-        "types",
-        "view"
+        "./src/*",
+        "./src/types",
+        "./src/view"
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts"
+        "./src/**/*.spec.ts"
     ]
 }

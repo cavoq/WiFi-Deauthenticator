@@ -61,7 +61,7 @@ class Main {
         },
         darkTheme: true,
         icon: 'public/wlan-signal.png',
-      })
+      });
     this.mainWindow.loadFile('public/auth.html');
     this.mainWindow.on('close', () => {
       StreamHandler.mainWindow.destroy();

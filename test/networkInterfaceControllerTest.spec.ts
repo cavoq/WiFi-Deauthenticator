@@ -5,8 +5,8 @@
 */
 
 import assert from 'assert';
-import NetworkInterfaceController from '../model/networkInterfaceController';
-import Utils from '../utils';
+import NetworkInterfaceController from '../src/model/networkInterfaceController';
+import Utils from '../src/utils';
 import { NetworkInterfaceInfoIPv4 } from 'os';
 
 const MOCK_INTERFACE_NAME = "wlan1";

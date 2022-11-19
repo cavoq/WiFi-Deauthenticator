@@ -5,7 +5,7 @@
 */
 
 import assert from 'assert';
-import Model from '../model/model';
+import Model from '../src/model/model';
 
 describe('Class: Model', () => {
   const testModel = new Model();
