@@ -4,7 +4,7 @@
 
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
-import StreamHandler from './terminalStream';
+import StreamHandler from './streamHandler';
 import Controller from './controller/controller';
 import Model from './model/model';
 import PasswordManager from './passwordManager';
@@ -63,6 +63,9 @@ class Main {
         icon: process.cwd() + '/src/public/wlan-signal.png',
       })
     this.mainWindow.loadFile('public/auth.html');
+    this.mainWindow.on('close', () => {
+      StreamHandler.mainWindow.destroy();
+    });
     this.mainWindow.on('closed', () => {
       this.controller.model.reset();
       this.application.quit();

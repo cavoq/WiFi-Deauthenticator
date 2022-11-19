@@ -14,6 +14,10 @@ class StreamHandler {
             if (!fs.existsSync(filePath)) {
                 return;
             }
+            if (StreamHandler.mainWindow.isDestroyed()) {
+                process.kill('SIGINT');
+                return;
+            }
             const content = fs.readFileSync(filePath, "utf-8");
             StreamHandler.send(content);
         });

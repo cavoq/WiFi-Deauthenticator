@@ -5,6 +5,7 @@
 import Client from "./client";
 import { ChildProcess, spawn } from 'child_process';
 import Utils from "../utils";
+import StreamHandler from "../streamHandler";
 
 const CAPTURED_CLIENTS = './capturedclis/capturedCLIENTS';
 const CSV_PREFIX = '-01.csv';
@@ -38,6 +39,7 @@ class AccessPoint {
     Utils.deleteCaptures();
     this.scanProcess = spawn('sudo', ['airodump-ng', '--bssid', this.bssid, '--channel',
       this.channel, '-w', CAPTURED_CLIENTS, '--write-interval', '1', '--output-format', 'csv', networkInterface]);
+    StreamHandler.process(this.scanProcess, CAPTURED_CLIENTS + CSV_PREFIX);
   }
 
   public stopScanning = async () => {

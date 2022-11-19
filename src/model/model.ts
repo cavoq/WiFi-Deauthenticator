@@ -7,7 +7,7 @@ import { ChildProcess, spawn } from 'child_process';
 import NetworkInterfaceController from './networkInterfaceController';
 import Utils from '../utils';
 import AccessPoint from './accessPoint';
-import StreamHandler from '../terminalStream';
+import StreamHandler from '../streamHandler';
 
 const CAPTURED_WAPS = './capturedwaps/capturedWAPS';
 const CSV_PREFIX = '-01.csv';
@@ -59,7 +59,6 @@ class Model {
 
   public stopScanningAccessPoints = async () => {
     this.scanProcess.kill('SIGINT');
-    console.log(this.scanProcess)
     Utils.deleteClientsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
     this.accessPoints = await Utils.readAccessPointsFromCsv(CAPTURED_WAPS + CSV_PREFIX);
   }

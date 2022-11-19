@@ -187,21 +187,22 @@ body {
   margin-top: 5%;
   margin-left: 10%;
   height: 30%;
-  width: 55%;
+  width: 60%;
   background-color: #000000;
   padding: 3em;
   border: 2px solid #ff2b2b;
-  overflow-y: auto;
-  overflow-x: auto;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
 }
 
 #terminal-container {
   color: #ffffff;
-  font-size: small;
-  overflow-x: auto;
-  overflow-y: auto;
+  font-size: xx-small;
   font-family: monospace;
   width: fit-content;
+  overflow-wrap: normal;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
 }
 
 #client-label {
