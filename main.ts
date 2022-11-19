@@ -60,7 +60,7 @@ class Main {
           contextIsolation: true,
         },
         darkTheme: true,
-        icon: process.cwd() + '/src/public/wlan-signal.png',
+        icon: 'public/wlan-signal.png',
       })
     this.mainWindow.loadFile('public/auth.html');
     this.mainWindow.on('close', () => {
