@@ -3,6 +3,7 @@ WiFi deauthentication tool for penetration testing purposes.
 
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-lightgrey.svg)
+![os](https://img.shields.io/badge/os-kali-linux.svg)
 
 ## DISCLAIMER
 
