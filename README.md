@@ -15,8 +15,33 @@ network owner.**
 
 ![Bildschirmfoto_2022-11-19_19-23-07](https://user-images.githubusercontent.com/61215846/202866000-64be6119-aa5a-4348-9bef-76247a2ae87b.png)
 
+## Development
+
+*Install*
+
+`
+npm install
+`
+
+*Test*
+
+`
+npm run test
+`
+
+*Run*
+
+`
+npm start
+`
+
+*Deployment*
+
+`
+npm make
+`
 ## TODO
 
-* Asynchronus setting of montior mode
+* Asynchronus setting of monitor mode
 * Improved logging
-* Deployment
+* Fixed feedback streaming
