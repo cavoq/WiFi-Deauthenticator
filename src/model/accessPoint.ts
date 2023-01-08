@@ -6,8 +6,9 @@ import Client from "./client";
 import { ChildProcess, spawn } from 'child_process';
 import Utils from "../utils";
 import StreamHandler from "../streamHandler";
+import path from "path";
 
-const CAPTURED_CLIENTS = './capturedclis/capturedCLIENTS';
+const CAPTURED_CLIENTS = path.join(__dirname, '../public/capturedclis/capturedCLIENTS');
 const CSV_PREFIX = '-01.csv';
 
 class AccessPoint {

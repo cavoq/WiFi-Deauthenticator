@@ -60,9 +60,9 @@ class Main {
           contextIsolation: true,
         },
         darkTheme: true,
-        icon: 'public/wlan-signal.png',
+        icon: path.join(__dirname, 'public/wlan-signal.png'),
       });
-    this.mainWindow.loadFile('public/auth.html');
+    this.mainWindow.loadFile(path.join(__dirname, 'public/auth.html'));
     this.mainWindow.on('close', () => {
       StreamHandler.mainWindow.destroy();
     });
@@ -104,7 +104,7 @@ class Main {
   grantAccess = (_event: Event, password: string) => {
     PasswordManager.safe(password);
     if (this.mainWindow) {
-      this.mainWindow.loadFile('public/main.html');
+      this.mainWindow.loadFile(path.join(__dirname, 'public/main.html'));
     }
   }
 }

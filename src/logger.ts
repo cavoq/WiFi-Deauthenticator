@@ -2,6 +2,7 @@
  * Configurations of logger.
  */
 
+import path from 'node:path';
 import winston from 'winston';
 import winstonRotator from 'winston-daily-rotate-file';
 
@@ -21,7 +22,7 @@ successLogger.add(new winstonRotator({
   level: 'info',
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  filename: './logs/access.log',
+  filename: path.join(__dirname, '../public/logs/access.log'),
   json: false,
   datePattern: 'yyyy-MM-dd-',
   prepend: true,
@@ -33,7 +34,7 @@ errorLogger.add(new winstonRotator({
   level: 'error',
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  filename: './logs/error.log',
+  filename: path.join(__dirname, '../public/logs/error.log'),
   json: false,
   datePattern: 'yyyy-MM-dd-',
   prepend: true,

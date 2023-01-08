@@ -7,6 +7,7 @@ import Client from './model/client';
 import fs from 'fs';
 import * as readline from 'node:readline';
 import { execSync } from 'child_process';
+import path from 'path';
 
 const RELEVANT_ROW_INDICES: number[] = [0, 3, 5, 6, 7, 13];
 const RELEVANT_ROW_INDICES_CLIS: number[] = [0, 5];
@@ -31,9 +32,8 @@ class Utils {
   }
 
   public static deleteCaptures() {
-    const projectRoot = process.cwd();
-    const capturedClients = projectRoot + "/capturedclis/captured*";
-    const capturedWAPS = projectRoot + "/capturedwaps/captured*";
+    const capturedClients = path.join(__dirname, "/capturedclis/captured*");
+    const capturedWAPS = path.join(__dirname, "/capturedwaps/captured*");
     execSync(`rm -f ${capturedClients} ${capturedWAPS}`);
   }
 

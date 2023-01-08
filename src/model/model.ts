@@ -8,8 +8,9 @@ import NetworkInterfaceController from './networkInterfaceController';
 import Utils from '../utils';
 import AccessPoint from './accessPoint';
 import StreamHandler from '../streamHandler';
+import path from 'path';
 
-const CAPTURED_WAPS = './capturedwaps/capturedWAPS';
+const CAPTURED_WAPS = path.join(__dirname, '../public/capturedwaps/capturedWAPS');
 const CSV_PREFIX = '-01.csv';
 
 class Model {
@@ -37,7 +38,7 @@ class Model {
       if (!iface) {
         return;
       }
-      if (address === 'lo' || address === 'eth0') {
+      if (address === 'lo' || address.startsWith('e')) {
         continue;
       }
       for (let i = 0; i < iface.length; i += 1) {
