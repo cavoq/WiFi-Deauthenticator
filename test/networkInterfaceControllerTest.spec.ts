@@ -9,10 +9,10 @@ import NetworkInterfaceController from '../src/model/networkInterfaceController'
 import Utils from '../src/utils';
 import { NetworkInterfaceInfoIPv4 } from 'os';
 
-const MOCK_INTERFACE_NAME = "wlan1";
+const MOCK_INTERFACE_NAME = "wlx00c0ca98ddf2";
 const MOCK_INTERFACE: NetworkInterfaceInfoIPv4 =
 {
-  address: '192.168.2.19',
+  address: '192.168.2.11',
   mac: '00:c0:ca:98:dd:f2',
   family: 'IPv4',
   internal: false,

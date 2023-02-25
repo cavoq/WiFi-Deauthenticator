@@ -8,7 +8,7 @@ import assert from 'assert';
 import Model from '../src/model/model';
 import Controller from '../src/controller/controller';
 
-const MOCK_INTERFACE = 'wlan1';
+const MOCK_INTERFACE = 'wlx00c0ca98ddf2';
 const MOCK_EVENT = new Event('click');
 
 describe('Class: Controller', () => {

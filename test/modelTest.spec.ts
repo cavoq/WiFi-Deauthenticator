@@ -12,16 +12,7 @@ describe('Class: Model', () => {
 
   it('Func: scanNetworkInterfaceControllers', () => {
     testModel.scanNetworkInterfaceControllers();
-    assert.equal(1, 1);
-  });
-
-  it('Func: scanAccessPoints', () => {
-    testModel.scanAccessPoints();
-    assert.equal(1, 1);
-  });
-
-  it('Func: stopScanningAccessPoints', () => {
-    testModel.stopScanningAccessPoints();
-    assert.equal(1, 1);
+    const numOfInterfaces = Object.keys(testModel.networkInterfaceControllers).length;
+    assert.ok(numOfInterfaces > 0);
   });
 });
