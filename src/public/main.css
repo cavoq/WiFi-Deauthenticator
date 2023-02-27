@@ -197,12 +197,13 @@ body {
 
 #terminal-container {
   color: #ffffff;
-  font-size: xx-small;
+  font-size: small;
   font-family: monospace;
   width: fit-content;
   overflow-wrap: normal;
   overflow-x: auto !important;
   overflow-y: auto !important;
+  white-space: pre;
 }
 
 #client-label {
