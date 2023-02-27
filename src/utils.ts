@@ -32,8 +32,8 @@ class Utils {
   }
 
   public static deleteCaptures() {
-    const capturedClients = path.join(__dirname, "/capturedclis/captured*");
-    const capturedWAPS = path.join(__dirname, "/capturedwaps/captured*");
+    const capturedClients = path.join(__dirname, "../public/capturedclis/captured*");
+    const capturedWAPS = path.join(__dirname, "../public/capturedwaps/captured*");
     execSync(`rm -f ${capturedClients} ${capturedWAPS}`);
   }
 

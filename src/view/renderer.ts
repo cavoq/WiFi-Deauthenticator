@@ -84,7 +84,6 @@ async function bandSelectionChangeHandler() {
 async function startScanningHandler() {
   const selectedBandValues = getSelectedBandValues();
   if (!selectedBandValues) {
-    console.log("hier")
     return;
   }
   if (selectedBandValues.length === 0) {

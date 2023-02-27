@@ -22,7 +22,7 @@ successLogger.add(new winstonRotator({
   level: 'info',
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  filename: path.join(__dirname, '../public/logs/access.log'),
+  filename: path.join(__dirname, '../../logs/access.log'),
   json: false,
   datePattern: 'yyyy-MM-dd-',
   prepend: true,
@@ -34,7 +34,7 @@ errorLogger.add(new winstonRotator({
   level: 'error',
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  filename: path.join(__dirname, '../public/logs/error.log'),
+  filename: path.join(__dirname, '../../logs/error.log'),
   json: false,
   datePattern: 'yyyy-MM-dd-',
   prepend: true,

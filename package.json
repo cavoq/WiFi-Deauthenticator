@@ -6,7 +6,7 @@
   "main": "build/src/main.js",
   "scripts": {
     "start": "npm run compile && electron build/src/main.js",
-    "compile": "tsc && cp -r src/public/ build/src/public",
+    "compile": "tsc && rsync -a src/public/ build/src/public/ && rsync -a src/logs/ build/src/logs/",
     "test": "mocha -r ts-node/register test/*",
     "test:coverage": "nyc npm run test",
     "package": "electron-forge package",

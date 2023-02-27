@@ -8,7 +8,7 @@ import Utils from "../utils";
 import StreamHandler from "../streamHandler";
 import path from "path";
 
-const CAPTURED_CLIENTS = path.join(__dirname, '../public/capturedclis/capturedCLIENTS');
+const CAPTURED_CLIENTS = path.resolve(__dirname, '../public/capturedclis/capturedCLIENTS');
 const CSV_PREFIX = '-01.csv';
 
 class AccessPoint {

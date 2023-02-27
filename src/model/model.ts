@@ -10,7 +10,7 @@ import AccessPoint from './accessPoint';
 import StreamHandler from '../streamHandler';
 import path from 'path';
 
-const CAPTURED_WAPS = path.join(__dirname, '../public/capturedwaps/capturedWAPS');
+const CAPTURED_WAPS = path.resolve(__dirname, '../public/capturedwaps/capturedWAPS');
 const CSV_PREFIX = '-01.csv';
 
 class Model {
