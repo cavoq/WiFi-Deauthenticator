@@ -7,6 +7,7 @@ import { ChildProcess, spawn } from 'child_process';
 import Utils from "../utils";
 import StreamHandler from "../streamHandler";
 import path from "path";
+import fs from "fs";
 
 const CAPTURED_CLIENTS = path.resolve(__dirname, '../public/capturedclis/capturedCLIENTS');
 const CSV_PREFIX = '-01.csv';
@@ -45,7 +46,9 @@ class AccessPoint {
 
   public stopScanning = async () => {
     this.scanProcess.kill('SIGINT');
-    Utils.deleteAccessPointsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
+    const capturedClients = CAPTURED_CLIENTS + CSV_PREFIX;
+    Utils.deleteAccessPointsFromCsv(capturedClients);
+    fs.unlinkSync(capturedClients);
     this.clients = await Utils.readClientsFromCsv(CAPTURED_CLIENTS + CSV_PREFIX);
   }
 
