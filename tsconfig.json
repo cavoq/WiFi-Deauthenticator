@@ -9,7 +9,7 @@
         "baseUrl": "./src",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
-        "suppressImplicitAnyIndexErrors": true,
+        "noImplicitAny": false,
         "typeRoots": [
             "./node_modules/@types",
             "./src/types/"

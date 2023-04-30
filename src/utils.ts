@@ -48,7 +48,7 @@ class Utils {
   }
 
   private static filterRow(row: string[], rowIndices: number[]) {
-    const filteredRow = [];
+    const filteredRow: string[] = [];
     for (let i = 0; i < rowIndices.length; i += 1) {
       filteredRow.push(row[rowIndices[i]].trim());
     }
