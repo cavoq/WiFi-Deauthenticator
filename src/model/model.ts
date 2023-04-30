@@ -3,6 +3,7 @@
 */
 
 import os from 'os';
+import fs from 'fs';
 import { ChildProcess, spawn } from 'child_process';
 import NetworkInterfaceController from './networkInterfaceController';
 import Utils from '../utils';
@@ -33,12 +34,13 @@ class Model {
 
   public scanNetworkInterfaceControllers = () => {
     const interfaces: NodeJS.Dict<os.NetworkInterfaceInfo[]> = os.networkInterfaces();
+    const net_dir = '/sys/class/net';
     this.networkInterfaceControllers = [];
     for (const [address, iface] of Object.entries(interfaces)) {
       if (!iface) {
         return;
       }
-      if (address === 'lo' || address.startsWith('e')) {
+      if (!fs.existsSync(`${net_dir}/${address}/wireless`)) {
         continue;
       }
       for (let i = 0; i < iface.length; i += 1) {

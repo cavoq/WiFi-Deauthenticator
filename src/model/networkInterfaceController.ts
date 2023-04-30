@@ -8,8 +8,6 @@ import { NetworkInterfaceInfo } from 'os';
 import { errorlog } from '../logger';
 import { successlog } from '../logger';
 
-const MONITOR_MODE = 'mon';
-
 class NetworkInterfaceController {
   name: string;
   address: string;
@@ -31,9 +29,6 @@ class NetworkInterfaceController {
     try {
       await promisify(exec)('sudo airmon-ng check kill');
       await promisify(exec)(`sudo iwconfig ${this.name} mode monitor`);
-      const newInterfaceName = `${this.name}${MONITOR_MODE}`;
-      await promisify(exec)(`sudo ip link set ${this.name} name ${newInterfaceName}`);
-      this.name = newInterfaceName;
       successlog.info(`${this.name} is now in monitor mode`);
     } catch (err) {
       errorlog.error(`Could not set ${this.name} into monitor mode: ${err}`);
@@ -42,10 +37,8 @@ class NetworkInterfaceController {
 
   public async setManagedMode() {
     try {
-      await promisify(exec)(`sudo ip link set ${this.name} name ${this.name.replace(MONITOR_MODE, '')}`);
-      await promisify(exec)(`sudo iwconfig ${this.name.replace(MONITOR_MODE, '')} mode managed`);
+      await promisify(exec)(`sudo iwconfig ${this.name} mode managed`);
       await promisify(exec)(`sudo service NetworkManager restart`);
-      this.name = this.name.replace(MONITOR_MODE, '');
       successlog.info(`${this.name} is now in managed mode`);
     } catch (err) {
       errorlog.error(`Could not set ${this.name} into managed mode: ${err}`);
@@ -67,7 +60,7 @@ class NetworkInterfaceController {
 
   public resetMac = async () => {
     try {
-      const originalMac = (await promisify(exec)(`sudo ethtool -P ${this.name} | awk '{print $3}'`)).toString().trim();
+      const originalMac = (await promisify(exec)(`sudo ethtool -P ${this.name} | awk '{print $3}'`)).stdout.toString().trim();
       await this.changeMac(originalMac);
       this.mac = originalMac;
       this.changedMac = false;

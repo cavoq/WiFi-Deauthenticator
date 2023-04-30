@@ -17,10 +17,12 @@ class Utils {
   public static getRandomMac() {
     const hexDigits = '0123456789ABCDEF';
     let macAddress = '';
-    for (let i = 0; i < 6; i += 1) {
+    // Ensure first byte is even
+    macAddress += hexDigits.charAt(Math.round(Math.random() * 7) * 2);
+    for (let i = 1; i < 6; i += 1) {
+      macAddress += ':';
       macAddress += hexDigits.charAt(Math.round(Math.random() * 15));
       macAddress += hexDigits.charAt(Math.round(Math.random() * 15));
-      if (i !== 5) macAddress += ':';
     }
     return macAddress;
   }
